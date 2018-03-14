@@ -9,7 +9,7 @@
   ],
   "dependencies": {
     "html-entities": "^1.2.1",
-    "lunr": "^2.1.4",
+    "lunr": "^2.1.6",
     "lunr-languages": "^1.0.0",
     "striptags": "^3.1.0"
   },
