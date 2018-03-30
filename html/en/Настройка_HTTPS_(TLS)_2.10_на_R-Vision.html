@@ -699,7 +699,7 @@
                             </ul>
             </li>
                                         <li class="leaf">
-        <a class="ht-nav-page-link" href="Справочник__Атрибуты_безопасности_.html">&#1057;&#1087;&#1088;&#1072;&#1074;&#1086;&#1095;&#1085;&#1080;&#1082; &quot;&#1040;&#1090;&#1088;&#1080;&#1073;&#1091;&#1090;&#1099; &#1073;&#1077;&#1079;&#1086;&#1087;&#1072;&#1089;&#1085;&#1086;&#1089;&#1090;&#1080;&quot;</a>
+        <a class="ht-nav-page-link" href="Справочник_«Атрибуты_безопасности».html">&#1057;&#1087;&#1088;&#1072;&#1074;&#1086;&#1095;&#1085;&#1080;&#1082; &laquo;&#1040;&#1090;&#1088;&#1080;&#1073;&#1091;&#1090;&#1099; &#1073;&#1077;&#1079;&#1086;&#1087;&#1072;&#1089;&#1085;&#1086;&#1089;&#1090;&#1080;&raquo;</a>
 
             </li>
                                         <li class="leaf">
@@ -1376,6 +1376,10 @@
             </li>
                                         <li class="leaf">
         <a class="ht-nav-page-link" href="Подготовка_к_запуску_интеграции.html">&#1055;&#1086;&#1076;&#1075;&#1086;&#1090;&#1086;&#1074;&#1082;&#1072; &#1082; &#1079;&#1072;&#1087;&#1091;&#1089;&#1082;&#1091; &#1080;&#1085;&#1090;&#1077;&#1075;&#1088;&#1072;&#1094;&#1080;&#1080;</a>
+
+            </li>
+                                        <li class="leaf">
+        <a class="ht-nav-page-link" href="Заполнение_полей_кейса_ArcSight_данными_из_событий,_связанных_с_кейсом_и_настройка_связывания_полей_в_R-Vision.html">&#1047;&#1072;&#1087;&#1086;&#1083;&#1085;&#1077;&#1085;&#1080;&#1077; &#1087;&#1086;&#1083;&#1077;&#1081; &#1082;&#1077;&#1081;&#1089;&#1072; ArcSight &#1076;&#1072;&#1085;&#1085;&#1099;&#1084;&#1080; &#1080;&#1079; &#1089;&#1086;&#1073;&#1099;&#1090;&#1080;&#1081;, &#1089;&#1074;&#1103;&#1079;&#1072;&#1085;&#1085;&#1099;&#1093; &#1089; &#1082;&#1077;&#1081;&#1089;&#1086;&#1084; &#1080; &#1085;&#1072;&#1089;&#1090;&#1088;&#1086;&#1081;&#1082;&#1072; &#1089;&#1074;&#1103;&#1079;&#1099;&#1074;&#1072;&#1085;&#1080;&#1103; &#1087;&#1086;&#1083;&#1077;&#1081; &#1074; R-Vision</a>
 
             </li>
                                         <li class="leaf">
@@ -4184,16 +4188,47 @@
         <div id="main-content" class="wiki-content sp-grid-section" data-index-for-search="true">
 
     <p  >Настройка использования TLS 2.10 осуществляется в несколько шагов:    </p>
-<ol class=" "><li class=" ">    <p  >Создайте директорию для хранения сертификата:<tt class=" "> mkdir -p /opt/smp/config/ssl/</tt>    </p>
-</li><li class=" ">    <p  >Создайте самозаверенный сертификат с помощью следующих команд:<tt class=" ">openssl req -new -x509 -days 9999 -nodes -newkey rsa:2048 \</tt><tt class=" ">-out /opt/smp/config/ssl/cert.pem \</tt><tt class=" ">-keyout /opt/smp/config/ssl/cert.key</tt>    </p>
-</li><li class=" ">    <p  >Удалите запущенные процессы:<br/><tt class=" ">pm2 delete /opt/smp/processes.json &amp;&amp; killall phantomjs</tt>    </p>
-</li><li class=" ">    <p  >Запустите процессы:<br/><tt class=" ">cd /opt/smp/ &amp;&amp; pm2 start processes.json</tt>    </p>
+<ol class=" "><li class=" ">    <p  class="auto-cursor-target">Создайте директорию для хранения сертификата:    </p>
+    <div  class="confbox programlisting">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="defaultnew syntaxhighlighter scroll-html-formatted-code">
+<div class="line"><code class="plain">mkdir -p /opt/smp/config/ssl/</code></div>
+</div>
+    </div>
+</li><li class=" ">    <p  class="auto-cursor-target">Создайте самозаверенный сертификат с помощью следующих команд:<tt class=" "></tt>    </p>
+    <div  class="confbox programlisting">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="defaultnew syntaxhighlighter scroll-html-formatted-code">
+<div class="line"><code class="plain">openssl req -</code><code class="keyword">new</code><code class="plain"> -x509 -days </code><code class="value">9999</code><code class="plain"> -nodes -newkey rsa:</code><code class="value">2048</code><code class="plain"> \</code></div>
+<div class="line"><code class="plain">-out /opt/smp/config/ssl/cert.pem \</code></div>
+<div class="line"><code class="plain">-keyout /opt/smp/config/ssl/cert.key</code></div>
+</div>
+    </div>
+</li><li class=" ">    <p  class="auto-cursor-target">Удалите запущенные процессы:<tt class=" "></tt>    </p>
+    <div  class="confbox programlisting">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="defaultnew syntaxhighlighter scroll-html-formatted-code">
+<div class="line"><code class="plain">pm2 delete /opt/smp/processes.json &amp;&amp; killall phantomjs</code></div>
+</div>
+    </div>
+</li><li class=" ">    <p  class="auto-cursor-target">Запустите процессы:<tt class=" "></tt>    </p>
+    <div  class="confbox programlisting">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="defaultnew syntaxhighlighter scroll-html-formatted-code">
+<div class="line"><code class="plain">cd /opt/smp/ &amp;&amp; pm2 start processes.json</code></div>
+</div>
+    </div>
 </li><li class=" ">    <p  >Через 15-30 секунд сервер будет доступен по https://.    </p>
 </li></ol>    <p  >Вместо самозаверенного сертификата вы можете использовать сертификат, выданный корпоративным центром сертификации. Для этого выполните следующие действия:    </p>
 <ol class=" "><li class=" ">    <p  >Поместите в директорию <tt class=" ">/opt/smp/config/ssl/</tt> закрытый ключ без пароля (файл должен иметь имя <strong class=" ">сert.key</strong>) и сертификат с открытым ключом (файл должен иметь имя <strong class=" ">cert.pem</strong>).    </p>
-</li><li class=" ">    <p  >Удалите запущенные процессы:<br/><tt class=" ">pm2 delete /opt/smp/processes.json &amp;&amp; killall phantomjs</tt>    </p>
+</li><li class=" ">    <p  class="auto-cursor-target">Удалите запущенные процессы:<tt class=" "></tt>    </p>
+    <div  class="confbox programlisting">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="defaultnew syntaxhighlighter scroll-html-formatted-code">
+<div class="line"><code class="plain">pm2 delete /opt/smp/processes.json &amp;&amp; killall phantomjs</code></div>
+</div>
+    </div>
 </li><li class=" ">    <p  >Запустите процессы командой:    </p>
-    <p  class="a"><tt class=" ">cd /opt/smp/ &amp;&amp; pm2 start processes.json</tt>    </p>
+    <div  class="confbox programlisting">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="defaultnew syntaxhighlighter scroll-html-formatted-code">
+<div class="line"><code class="plain">cd /opt/smp/ &amp;&amp; pm2 start processes.json</code></div>
+</div>
+    </div>
 </li><li class=" ">    <p  >Через 15-30 секунд сервер будет доступен по https://.    </p>
 </li></ol>        </div>
 
