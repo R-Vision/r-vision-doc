@@ -1,14 +1,13 @@
-Index: html/en/assets/css/content-style.css
-IDEA additional info:
-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
-<+>UTF-8
-===================================================================
---- html/en/assets/css/content-style.css	(date 1515664061000)
-+++ html/en/assets/css/content-style.css	(date 1515662935000)
-@@ -576,3 +576,45 @@
+diff --git a/html/en/assets/css/content-style.css b/html/en/assets/css/content-style.css
+index 81baed4..be96f2c 100644
+--- a/html/en/assets/css/content-style.css
++++ b/html/en/assets/css/content-style.css
+@@ -576,3 +576,48 @@ cite:before {
  .wiki-content .syntaxhighlighter .color3 a {
      color: red;
  }
++
++/* R-VISION */
 + .wiki-content,
 +.wiki-content p,
 +.wiki-content table,
@@ -51,92 +50,121 @@ Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
 +#ht-sidebar .ht-pages-nav {
 +  margin-top: 5px !important;
 +}
-Index: html/en/assets/css/theme.main.css
-IDEA additional info:
-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
-<+>UTF-8
-===================================================================
---- html/en/assets/css/theme.main.css	(date 1515664061000)
-+++ html/en/assets/css/theme.main.css	(date 1515664225000)
-@@ -292,6 +292,11 @@
++/* END */
+diff --git a/html/en/assets/css/theme.main.css b/html/en/assets/css/theme.main.css
+index 6a14461..adec8c6 100644
+--- a/html/en/assets/css/theme.main.css
++++ b/html/en/assets/css/theme.main.css
+@@ -292,6 +292,13 @@ body {
      box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.25);
    }
  }
++/* R-VISION */
 +@media screen and (min-width: 0px) and (max-width: 640px) and (orientation: landscape) {
 +  #ht-headerbar .ht-dropdown {
 +    display: none;
 +  }
 +}
++/* END */
  #ht-headerbar .ht-dropdown.open {
    max-height: 300px;
    opacity: 1;
-@@ -767,6 +772,11 @@
+@@ -767,6 +774,13 @@ body {
      box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.25);
    }
  }
++/* R-VISION */
 +@media screen and (min-width: 0px) and (max-width: 640px) and (orientation: landscape) {
 +  #ht-sidebar .ht-scroll-versions-widget .ht-dropdown {
 +    display: none;
 +  }
 +}
++/* END */
  #ht-sidebar .ht-scroll-versions-widget .ht-dropdown.open {
    max-height: 300px;
    opacity: 1;
-@@ -813,7 +823,7 @@
+@@ -813,7 +827,8 @@ body {
    font-size: 0.875em;
    margin-bottom: 20px;
    width: 100%;
 -  margin-top: 40px;
++  /*margin-top: 40px; R-VISION */
 +  margin-top: 40px !important;
  }
  @media screen and (max-width: 640px) {
    #ht-sidebar .ht-pages-nav {
-@@ -1027,7 +1037,7 @@
-       left: auto;
-       box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.25);
-     }
--}
-+  }
- }
- /* --- WRAP-CONTAINER ----------------------------------------------------------------------------------------------- */
- #ht-wrap-container {
-@@ -1173,7 +1183,7 @@
+@@ -1173,7 +1188,8 @@ body {
    transition: background-color 0.25s ease-out;
  }
  #ht-wrap-container .ht-content {
 -  padding: 72px 40px 60px 30px;
++  /*  padding: 72px 40px 60px 30px; R-VISION */
 +  padding: 56px 40px 60px 30px !important;
    max-width: auto;
  }
  #ht-wrap-container .ht-content img {
-@@ -1273,7 +1283,7 @@
+@@ -1273,7 +1289,8 @@ body {
    border: 0;
  }
  #ht-wrap-container .ht-content .ht-content-header {
 -  margin-bottom: 32px;
++  /* margin-bottom: 32px; R-VISION */
 +  margin-bottom: 15px !important;
  }
  @media screen and (max-width: 640px) {
    #ht-wrap-container .ht-content .ht-content-header {
-@@ -1481,6 +1491,7 @@
+@@ -1481,6 +1498,7 @@ body {
    font-size: 24px;
    font-weight: normal;
    line-height: 1.25;
-+  padding-top: 15px !important;
++  padding-top: 15px !important; /* R-VISION */
  }
  #ht-wrap-container .ht-content .ht-content-header p {
    font-size: 0.875em;
-Index: html/ru/assets/css/content-style.css
-IDEA additional info:
-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
-<+>UTF-8
-===================================================================
---- html/ru/assets/css/content-style.css	(date 1515664061000)
-+++ html/ru/assets/css/content-style.css	(date 1515662935000)
-@@ -576,3 +576,45 @@
+diff --git a/html/en/assets/js/theme.main.js b/html/en/assets/js/theme.main.js
+index 263e224..49eb5bf 100644
+--- a/html/en/assets/js/theme.main.js
++++ b/html/en/assets/js/theme.main.js
+@@ -727,4 +727,29 @@
+         }
+     }
+ 
++    // R-VISION: RVN-5315
++    $('.external-link').attr('target', '_blank');
++    $('.ht-logo').hide();
++
++    var parent = window.parent;
++    if(parent) {
++        if(parent.R !== undefined && parent.R.theme === 'theme-dark') {
++            $('body, #ht-headerbar, #ht-wrap-container').css({
++                'background-color': '#2b2b2b',
++                color: '#ccc',
++            });
++            $('#ht-sidebar-dragbar, .panel-header').css('background-color', '#101010');
++            $('#ht-sidebar').css('background-color', '#3c3f41');
++            $('.confluenceTh, .confbox').css({
++                'background-color': '#101010',
++                'color': '#ccc',
++            });
++            $('.heading').css('color', '#ccc');
++            $('a').css('color', '#ccc');
++            $('.wiki-content .syntaxhighlighter .plain').css('color', '#ccc');
++            $('head').append('<style> a:hover{ color: #eee !important; } </style>');
++        }
++    }
++    // END 5315
++
+ })($);
+diff --git a/html/ru/assets/css/content-style.css b/html/ru/assets/css/content-style.css
+index 81baed4..be96f2c 100644
+--- a/html/ru/assets/css/content-style.css
++++ b/html/ru/assets/css/content-style.css
+@@ -576,3 +576,48 @@ cite:before {
  .wiki-content .syntaxhighlighter .color3 a {
      color: red;
  }
++
++/* R-VISION */
 + .wiki-content,
 +.wiki-content p,
 +.wiki-content table,
@@ -179,78 +207,108 @@ Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
 +#ht-sidebar .ht-pages-nav {
 +  margin-top: 5px !important;
 +}
-Index: html/ru/assets/css/theme.main.css
-IDEA additional info:
-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
-<+>UTF-8
-===================================================================
---- html/ru/assets/css/theme.main.css	(date 1515664061000)
-+++ html/ru/assets/css/theme.main.css	(date 1515664225000)
-@@ -292,6 +292,11 @@
++/* END */
+diff --git a/html/ru/assets/css/theme.main.css b/html/ru/assets/css/theme.main.css
+index 6a14461..d04b9b9 100644
+--- a/html/ru/assets/css/theme.main.css
++++ b/html/ru/assets/css/theme.main.css
+@@ -292,6 +292,13 @@ body {
      box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.25);
    }
  }
++/* R-VISION */
 +@media screen and (min-width: 0px) and (max-width: 640px) and (orientation: landscape) {
 +  #ht-headerbar .ht-dropdown {
 +    display: none;
 +  }
 +}
++/* END */
  #ht-headerbar .ht-dropdown.open {
    max-height: 300px;
    opacity: 1;
-@@ -767,6 +772,11 @@
+@@ -767,6 +774,13 @@ body {
      box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.25);
    }
  }
++/* R-VISION */
 +@media screen and (min-width: 0px) and (max-width: 640px) and (orientation: landscape) {
 +  #ht-sidebar .ht-scroll-versions-widget .ht-dropdown {
 +    display: none;
 +  }
 +}
++/* END */
  #ht-sidebar .ht-scroll-versions-widget .ht-dropdown.open {
    max-height: 300px;
    opacity: 1;
-@@ -813,7 +823,7 @@
+@@ -813,7 +827,8 @@ body {
    font-size: 0.875em;
    margin-bottom: 20px;
    width: 100%;
 -  margin-top: 40px;
++  /* margin-top: 40px; R-VISION */
 +  margin-top: 40px !important;
  }
  @media screen and (max-width: 640px) {
    #ht-sidebar .ht-pages-nav {
-@@ -1027,7 +1037,7 @@
-       left: auto;
-       box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.25);
-     }
--}
-+  }
- }
- /* --- WRAP-CONTAINER ----------------------------------------------------------------------------------------------- */
- #ht-wrap-container {
-@@ -1173,7 +1183,7 @@
+@@ -1173,7 +1188,8 @@ body {
    transition: background-color 0.25s ease-out;
  }
  #ht-wrap-container .ht-content {
 -  padding: 72px 40px 60px 30px;
++  /* padding: 72px 40px 60px 30px; R-VISION */
 +  padding: 56px 40px 60px 30px !important;
    max-width: auto;
  }
  #ht-wrap-container .ht-content img {
-@@ -1273,7 +1283,7 @@
+@@ -1273,7 +1289,8 @@ body {
    border: 0;
  }
  #ht-wrap-container .ht-content .ht-content-header {
 -  margin-bottom: 32px;
++  /* margin-bottom: 32px; R-VISION */
 +  margin-bottom: 15px !important;
  }
  @media screen and (max-width: 640px) {
    #ht-wrap-container .ht-content .ht-content-header {
-@@ -1481,6 +1491,7 @@
+@@ -1481,6 +1498,7 @@ body {
    font-size: 24px;
    font-weight: normal;
    line-height: 1.25;
-+  padding-top: 15px !important;
++  padding-top: 15px !important; /* R-VISION */
  }
  #ht-wrap-container .ht-content .ht-content-header p {
    font-size: 0.875em;
+diff --git a/html/ru/assets/js/theme.main.js b/html/ru/assets/js/theme.main.js
+index 263e224..49eb5bf 100644
+--- a/html/ru/assets/js/theme.main.js
++++ b/html/ru/assets/js/theme.main.js
+@@ -727,4 +727,29 @@
+         }
+     }
+ 
++    // R-VISION: RVN-5315
++    $('.external-link').attr('target', '_blank');
++    $('.ht-logo').hide();
++
++    var parent = window.parent;
++    if(parent) {
++        if(parent.R !== undefined && parent.R.theme === 'theme-dark') {
++            $('body, #ht-headerbar, #ht-wrap-container').css({
++                'background-color': '#2b2b2b',
++                color: '#ccc',
++            });
++            $('#ht-sidebar-dragbar, .panel-header').css('background-color', '#101010');
++            $('#ht-sidebar').css('background-color', '#3c3f41');
++            $('.confluenceTh, .confbox').css({
++                'background-color': '#101010',
++                'color': '#ccc',
++            });
++            $('.heading').css('color', '#ccc');
++            $('a').css('color', '#ccc');
++            $('.wiki-content .syntaxhighlighter .plain').css('color', '#ccc');
++            $('head').append('<style> a:hover{ color: #eee !important; } </style>');
++        }
++    }
++    // END 5315
++
+ })($);

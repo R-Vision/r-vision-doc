@@ -576,6 +576,8 @@ cite:before {
 .wiki-content .syntaxhighlighter .color3 a {
     color: red;
 }
+
+/* R-VISION */
  .wiki-content,
 .wiki-content p,
 .wiki-content table,
@@ -618,3 +620,4 @@ cite:before {
 #ht-sidebar .ht-pages-nav {
   margin-top: 5px !important;
 }
+/* END */

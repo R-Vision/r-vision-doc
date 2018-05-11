@@ -131,12 +131,12 @@ function scanDocs(items) {
   writeFile(lunrIndexContents, path.join(docsPath, 'js/lunr-index.js'));
   writeFile(lunrDataContents, path.join(docsPath, 'js/lunr-data.js'));
   copyFiles([
-    './node_modules/lunr/lunr.js',
+    path.resolve(__dirname, 'node_modules/lunr/lunr.js'),
   ], path.join(docsPath, 'js/lunr.js'));
   copyFiles([
-    './node_modules/lunr-languages/lunr.stemmer.support.js',
-    './node_modules/lunr-languages/lunr.multi.js',
-    './node_modules/lunr-languages/lunr.ru.js',
+      path.resolve(__dirname, 'node_modules/lunr-languages/lunr.stemmer.support.js'),
+      path.resolve(__dirname, 'node_modules/lunr-languages/lunr.multi.js'),
+      path.resolve(__dirname, 'node_modules/lunr-languages/lunr.ru.js'),
   ], path.join(docsPath, 'js/lunr-extras.js'));
 }
 
