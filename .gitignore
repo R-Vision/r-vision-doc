@@ -1,3 +1,15 @@
 .idea
 .vs
-src
+.vscode
+.tmp
+
+docfixer/package-lock.json
+docfixer/yarn.lock
+
+# exclude everything
+src/*
+
+# exception to the rule
+!src/.gitkeep
+
+convert_log.log

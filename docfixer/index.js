@@ -31,7 +31,9 @@ let fileId = 0;
 function onReadDoc(data, fileName) {
   let match = data.match(/<title[^>]*>([^<]*?)\s\-\s[\w|\s\-]*<\/title>/i);
   if (match === null) {
-    console.warn(`Skipped ${fileName}, no title`);
+    if (fileName !== 'index.html') {
+      throw new Error(`File is does not have title: ${fileName}`);
+    }
     return null;
   }
 
@@ -39,8 +41,7 @@ function onReadDoc(data, fileName) {
 
   match = data.match(/data-index-for-search="true"[^>]*>([\s\S]+?)<\/div>\s+<\/article>/i);
   if (match === null) {
-    console.warn(`Skipped ${fileName}, no body`);
-    return null;
+    throw new Error(`File is does not have body: ${fileName}`);
   }
 
   const body = entities.decode(stripTags(match[1]));
