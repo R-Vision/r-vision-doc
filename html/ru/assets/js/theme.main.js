@@ -80,6 +80,9 @@
         /* init Keyboard */
         initKeyboard();
 
+        /* R-VISION: RVN-5315 */
+        initCustomStyles();
+
         $('.sp-picker').change(function () {
             $(this).closest('form').trigger('submit');
         });
@@ -786,29 +789,33 @@
         }
     }
 
-    // R-VISION: RVN-5315
-    $('.external-link').attr('target', '_blank');
-    $('.ht-logo').hide();
+    /**
+     * Инициадлизирует кастомные стили
+     * @see RVN-5315
+     */
+    function initCustomStyles() {
+        $('.external-link').attr('target', '_blank');
+        $('.ht-logo').hide();
 
-    var parent = window.parent;
-    if(parent) {
-        if(parent.R !== undefined && parent.R.theme === 'theme-dark') {
-            $('body, #ht-headerbar, #ht-wrap-container').css({
-                'background-color': '#2b2b2b',
-                color: '#ccc',
-            });
-            $('#ht-sidebar-dragbar, .panel-header').css('background-color', '#101010');
-            $('#ht-sidebar').css('background-color', '#3c3f41');
-            $('.confluenceTh, .confbox').css({
-                'background-color': '#101010',
-                'color': '#ccc',
-            });
-            $('.heading').css('color', '#ccc');
-            $('a').css('color', '#ccc');
-            $('.wiki-content .syntaxhighlighter .plain').css('color', '#ccc');
-            $('head').append('<style> a:hover{ color: #eee !important; } </style>');
+        var parent = window.parent;
+        if (parent) {
+            if (parent.R !== undefined && parent.R.theme === 'theme-dark') {
+                $('body, #ht-headerbar, #ht-wrap-container').css({
+                    'background-color': '#2b2b2b',
+                    color: '#ccc',
+                });
+                $('#ht-sidebar-dragbar, .panel-header').css('background-color', '#101010');
+                $('#ht-sidebar').css('background-color', '#3c3f41');
+                $('.confluenceTh, .confbox').css({
+                    'background-color': '#101010',
+                    'color': '#ccc',
+                });
+                $('.heading').css('color', '#ccc');
+                $('a').css('color', '#ccc');
+                $('.wiki-content .syntaxhighlighter .plain').css('color', '#ccc');
+                $('head').append('<style> a:hover{ color: #eee !important; } </style>');
+            }
         }
     }
-    // END 5315
 
 })($);
