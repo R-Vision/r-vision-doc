@@ -4,6 +4,10 @@
     background-color: #FFCCCC;
 }
 
+.jira-macro-table .icon {
+    max-width: none !important;
+}
+
 
 /* Paragraphs ************************************************************************************/
 

@@ -827,7 +827,7 @@ body {
   font-size: 0.875em;
   margin-bottom: 20px;
   width: 100%;
-  /* margin-top: 40px; R-VISION */
+  /*margin-top: 40px; R-VISION */
   margin-top: 40px !important;
 }
 @media screen and (max-width: 640px) {
@@ -1188,7 +1188,7 @@ body {
   transition: background-color 0.25s ease-out;
 }
 #ht-wrap-container .ht-content {
-  /* padding: 72px 40px 60px 30px; R-VISION */
+  /*  padding: 72px 40px 60px 30px; R-VISION */
   padding: 56px 40px 60px 30px !important;
   max-width: auto;
 }

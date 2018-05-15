@@ -1,7 +1,6 @@
 (function($) {
     'use strict';
 
-    window.SCROLL_WEBHELP = window.SCROLL_WEBHELP || {};
     window.SCROLL_WEBHELP.search = window.SCROLL_WEBHELP.search || {};
 
 
@@ -11,6 +10,9 @@
 
     var queryCallbacks = {};
 
+    $('form#search').on('submit', function() {
+        return false;
+    });
 
     window.SCROLL_WEBHELP.search.performSearch = function(query, onResultsAvailableCallback) {
         search(query, onResultsAvailableCallback);
@@ -52,8 +54,7 @@
     var displaySearchResultsPage = function(searchResults, query) {
         var container = $('#html-search-results');
 
-        container.find('.ht-content-header h1').html('Search for <em>"' + escapeHtml(query) + '"</em> returned ' + searchResults.length
-            + ' result' + (searchResults.length != 1 ? 's.' : '.'));
+        container.find('.ht-content-header h1').html(SCROLL_WEBHELP.i18n('searchResultsTitle', searchResults.length, { query: escapeHtml(query) }));
 
         var list = $("#search-results");
         list.empty();
@@ -63,7 +64,7 @@
         $.each(searchResults, function(index, searchResult) {
             var displayUrl = baseUrl + searchResult.link;
             list.append('<section class="search-result">'
-                +'<header><h2><a href="' + searchResult.link + '">' + searchResult.title + '</a></h2></header>'
+                +'<header><h2><a href="' + searchResult.link + '">' + SCROLL_WEBHELP.escapeHtml(searchResult.title) + '</a></h2></header>'
                 +'<div class="search-result-content"><p class="search-result-link">' + displayUrl + '</p></div>'
                 +'<hr>'
                 +'</section>');

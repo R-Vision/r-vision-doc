@@ -1,10 +1,54 @@
 (function($) {
-    /**
+    /*
      *
      * K15t Help Theme
      * Main Javascript
      *
-     **/
+     */
+
+    // This object holds all i18n messages used in the Scroll WebHelp Theme. See https://github.com/musterknabe/translate.js
+    // The first level members correspond to locale keys as used in Java, for example 'en', 'en_US' and so on.
+    // The country specific locales override the generic ones, and fallbacks to the generic messages are implemented.
+    // Example: If this object contained entries for 'en', 'en_US' and 'de' the following would happen:
+    // - 'en_US' documents would use the 'en_US' messages
+    // - 'en_GB' documents would use the 'en' messages
+    // - documents from all 'de' variations such as 'de_DE' would fall back to 'de' messages
+    // - all other documents would use 'en' because that's the global default
+    var allI18nMessages = {
+        en: {
+            searchInputPlaceholder: 'Search',
+            searchLabel: 'Search for: {query}',
+            searchResultsTitle: {
+                0: 'Search for <em>{query}</em> returned no results.',
+                1: 'Search for <em>{query}</em> returned one result.',
+                n: 'Search for <em>{query}</em> returned {n} results.'
+            }
+        },
+        de: {
+            searchInputPlaceholder: 'Suche',
+            searchLabel: 'Suche nach: {query}',
+            searchResultsTitle: {
+                0: 'Suche nach <em>{query}</em> ergab keine Treffer.',
+                1: 'Suche nach <em>{query}</em> ergab einen Treffer.',
+                n: 'Suche nach <em>{query}</em> ergab {n} Treffer.'
+            }
+        },
+        fr: {
+            searchInputPlaceholder: 'recherche',
+            searchLabel: 'Recherchez: {query}',
+            searchResultsTitle: {
+                0: 'Recherchez <em>{query}</em> aucun résultat trouvé.',
+                1: 'Recherchez <em>{query}</em> un résultat trouvé.',
+                n: 'Recherchez <em>{query}</em> {n} résultats trouvés.'
+            }
+        }
+    };
+
+    window.SCROLL_WEBHELP = window.SCROLL_WEBHELP || {};
+
+    window.SCROLL_WEBHELP.escapeHtml = function(text) {
+        return $('<div />').text(text).html()
+    };
 
     var searchURL = 'search.json';
     var viewport = 'desktop';
@@ -17,6 +61,7 @@
     var isSafari = Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') > 0; // At least Safari 3+: "[object HTMLElementConstructor]"
 
     $(document).ready(function() {
+        initI18n();
 
         //pageId = $('body').attr('pageid');
         /* Set Type of Device */
@@ -51,6 +96,23 @@
         //setTimeout(function() {$('#ht-loader').hide();}, 500);
         $('#ht-loader').hide();
     });
+
+    function initI18n() {
+        var currentMessages = allI18nMessages.en; // Default language is English
+
+        var localeSegments = ($('meta[name=scroll-content-language-key]').attr('content') || '').split('_');
+        while (localeSegments.length > 0) {
+            var locale = localeSegments.join('_');
+            if (allI18nMessages[locale]) {
+                currentMessages = allI18nMessages[locale];
+                break;
+            } else {
+                localeSegments.pop();
+            }
+        }
+
+        window.SCROLL_WEBHELP.i18n = libTranslate.getTranslationFunction(currentMessages);
+    }
 
     /*======================================
      =            Resize Sidebar            =
@@ -207,6 +269,8 @@
      =========================================*/
 
     function initSearch() {
+        $('input.search-input').attr('placeholder', SCROLL_WEBHELP.i18n('searchInputPlaceholder'));
+
         var debounce = function(func, wait) {
             var timeout;
             var result;
@@ -242,11 +306,6 @@
             if (str.length == 0) {
                 $('.ht-search-dropdown').removeClass('open');
             }
-        });
-
-
-        $('form#search').on('submit', function() {
-            return false;
         });
     }
 
@@ -294,12 +353,12 @@
             $(document).unbind('keydown');
 
             $.each(searchResults, function (index, searchResult) {
-                resultsList.append('<li n="' + index + '" class="search-result"><a href="' + searchResult.link + '">' + searchResult.title + '</a></li>');
+                resultsList.append('<li n="' + index + '" class="search-result"><a href="' + searchResult.link + '">' + SCROLL_WEBHELP.escapeHtml(searchResult.title) + '</a></li>');
             });
 
-            var keybutton = $('<li class="search-key" n="' + searchResults.length + '"><a class="search-key-button" href="#">Search: <b>' + query + '</b></a></li>');
+            var keybutton = $('<li class="search-key" n="' + searchResults.length + '"><a class="search-key-button" href="#">' + SCROLL_WEBHELP.i18n('searchLabel', {query: '<b>' + SCROLL_WEBHELP.escapeHtml(query) + '</b>'}) + '</a></li>');
             keybutton.bind('click', function(e) {
-                navigateToSearchResultsPage(query);
+                navigateToSearchResultsPage($('.search-input').val());
                 e.preventDefault();
             });
             resultsList.append(keybutton);
@@ -318,12 +377,12 @@
                         var selected = $('.ht-search-dropdown a.hover');
                         if (selected.length != 0) {
                             if (selected.is('.search-key-button')) {
-                                navigateToSearchResultsPage(query);
+                                navigateToSearchResultsPage($('.search-input').val());
                             } else {
                                 window.location.href = selected.attr('href');
                             }
                         } else {
-                            navigateToSearchResultsPage(query);
+                            navigateToSearchResultsPage($('.search-input').val());
                         }
                         break;
 
