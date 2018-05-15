@@ -1,0 +1,51 @@
+--- src/assets/css/content-style.css	2018-03-21 10:34:18.000000000 +0300
++++ .tmp/assets/css/content-style.css	2018-05-15 15:29:47.458630700 +0300
+@@ -576,3 +576,48 @@
+ .wiki-content .syntaxhighlighter .color3 a {
+     color: red;
+ }
++
++/* R-VISION */
++ .wiki-content,
++.wiki-content p,
++.wiki-content table,
++.wiki-content tr,
++.wiki-content td,
++.wiki-content th,
++.wiki-content ol,
++.wiki-content ul,
++.wiki-content li {
++    line-height: 1.5;
++}
++
++.wiki-content ol,
++.wiki-content ul {
++    margin-bottom: 10px;
++    margin-top: 10px !important;
++}
++
++.wiki-content li {
++    margin-bottom: 10px !important;
++}
++
++.wiki-content .confluence-content-image-border {
++    border: 2px solid lightgrey !important;
++    margin-top: 15px !important;
++}
++
++#likes-section, #comments-section, .page-metadata {
++    display: none;
++}
++
++.acs-side-bar-space-info {
++    display: none;
++}
++
++.ht-sidebar-header {
++    display: none !important;
++}
++
++#ht-sidebar .ht-pages-nav {
++  margin-top: 5px !important;
++}
++/* END */
