@@ -812,8 +812,42 @@
                 });
                 $('.heading').css('color', '#ccc');
                 $('a').css('color', '#ccc');
+                $(".confbox.programlisting .title").css({"background-color": "#3c3f41", "color": "#ccc"});
                 $('.wiki-content .syntaxhighlighter .plain').css('color', '#ccc');
-                $('head').append('<style> a:hover{ color: #eee !important; } </style>');
+                $('head').append('<style>' +
+                    'a:hover { color: #eee !important; }' +
+                    '.dark-search ul li a { background-color: #2b2b2b !important; color: #ccc !important; }' +
+                    '.dark-search ul li a:hover { background-color: #3c3f41 !important; color: #fff !important; }' +
+                    '.dark-search { border-color: #3c3f41 !important; }' +
+                    '.dark-search-results a { color: #ccc !important; }' +
+                    '.dark-search-results a:hover { color: #fff !important; }' +
+                    '</style>');
+                $('.ht-search-dropdown').addClass('dark-search');
+                $('.ht-search-input, .search-input').css({
+                    'background-color': '#3c3f41'
+                });
+                $('.search-input').css({
+                    'color': '#ccc'
+                });
+                $('#ht-headerbar .ht-headerbar-right .ht-header-icon svg path').css({
+                    'fill': '#ccc'
+                });
+                $('#search-results').addClass('dark-search-results');
+                $('#ht-icon-prev path, #ht-icon-next path').css({
+                    'fill': '#ccc'
+                });
+                $('.wiki-content .syntaxhighlighter .string, .wiki-content .syntaxhighlighter .string a').css('color', '#369');
+                var oldEndDragbar = endDragbar;
+                endDragbar = function() {
+                    oldEndDragbar();
+                    if ($('#ht-sidebar').attr('style') == '') {
+                        $('#ht-wrap-container').css({
+                            'background-color': '#2b2b2b',
+                            'color': '#ccc'
+                        });
+                        $('#ht-sidebar').css('background-color', '#3c3f41');
+                    }
+                };
             }
         }
     }
