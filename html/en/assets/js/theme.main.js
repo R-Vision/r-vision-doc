@@ -808,7 +808,7 @@
                 $('#ht-sidebar').css('background-color', '#3c3f41');
                 $('.confluenceTh, .confbox').css({
                     'background-color': '#101010',
-                    'color': '#ccc',
+                    color: '#ccc',
                 });
                 $('.heading').css('color', '#ccc');
                 $('a').css('color', '#ccc');
@@ -827,14 +827,16 @@
                     'background-color': '#3c3f41'
                 });
                 $('.search-input').css({
-                    'color': '#ccc'
+                    color: '#ccc'
                 });
                 $('#ht-headerbar .ht-headerbar-right .ht-header-icon svg path').css({
-                    'fill': '#ccc'
+                    fill: '#ccc'
                 });
+                $('#ht-sidebar .ht-pages-nav ul li .ht-pages-nav-toggle').css('border-color', '#ccc');
+                $('#ht-sidebar .ht-pages-nav ul li .ht-pages-nav-toggle svg g').css('fill', '#ccc');
                 $('#search-results').addClass('dark-search-results');
                 $('#ht-icon-prev path, #ht-icon-next path').css({
-                    'fill': '#ccc'
+                    fill: '#ccc'
                 });
                 $('.wiki-content .syntaxhighlighter .string, .wiki-content .syntaxhighlighter .string a').css('color', '#369');
                 var oldEndDragbar = endDragbar;
