@@ -379,6 +379,10 @@ cite:before {
     border-radius: 5px;
 }
 
+.wiki-content div.panel {
+    overflow: hidden;
+}
+
 .wiki-content div.confbox .title {
     font-weight: bold;
 }

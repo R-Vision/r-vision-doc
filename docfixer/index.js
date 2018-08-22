@@ -41,7 +41,10 @@ function onReadDoc(data, fileName) {
 
   match = data.match(/data-index-for-search="true"[^>]*>([\s\S]+?)<\/div>\s+<\/article>/i);
   if (match === null) {
-    throw new Error(`File is does not have body: ${fileName}`);
+    if (fileName !== 'search.html') {
+        throw new Error(`File is does not have body: ${fileName}`);
+    }
+    return null;
   }
 
   const body = entities.decode(stripTags(match[1]));
