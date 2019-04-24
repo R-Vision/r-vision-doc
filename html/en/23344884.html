@@ -5154,19 +5154,19 @@
 <ul class=" "><li class=" "><p   >Персонал: ФИО.</p>
 </li><li class=" "><p   >Персонал: Логин, домен.</p>
 </li><li class=" "><p   >Персонал: E-mail.</p>
-</li></ul>    <div  class="confbox admonition admonition-note">
-                            <span class="admonition-icon confluence-information-macro-icon"></span>
-                <div class="admonition-body">
-<p   >При использовании функций <strong class=" ">resolveDevicesByIps</strong>, <strong class=" ">resolveDevicesByHostName</strong>, <strong class=" ">resolveStaff</strong> в текстовых полях, работа интеграции завершится с ошибкой несоответствия типов.</p>
-        </div>
-    </div>
-<p   ><strong class=" ">resolveStaffByEmails:.emails</strong> - Определяет персонал по e-mail адресам. Аргумент: {string|string[]} emails - e-mail адреса пользователей. Возвращает {Promise&lt;Object[] | null&gt;} - пользователи из am_users.</p>
+</li></ul><p   ><strong class=" ">resolveStaffByEmails:.emails</strong> - Определяет персонал по e-mail адресам. Аргумент: {string|string[]} emails - e-mail адреса пользователей. Возвращает {Promise&lt;Object[] | null&gt;} - пользователи из am_users.</p>
 <p   ><strong class=" ">resolveStaffByLoginAndDomain:.login, domain</strong> - Определяет персонал по логину и домену. Аргументы: {string} login - логин, {string} domain - домен. Возвращает {Promise&lt;Object[] | null&gt;} - пользователи из am_users.</p>
 <p   ><strong class=" ">resolveEvidences:.files</strong> - Добавляет свидетельства инцидентов в систему, если таких свидетельств еще не было добавлено. Аргумент: {Object[]} files - данные файлов свидетельств. Возвращает {Promise&lt;Object[]&gt;}.</p>
 <p   ><strong class=" ">resolveStaffByWinLogin</strong> - Определяет персонал по Down-Level Logon Name (маска DOMAIN\login).</p>
 <p   ><strong class=" ">resolveStaffByLogin</strong> - Определяет персонал по логину.</p>
 <p   ><strong class=" ">resolveStaffBySID</strong> - Определяет персонал по SID.</p>
 <p   ><strong class=" ">resolveHostInRoundBrackets:.data</strong> - Определяет хост в круглых скобках. Извлекает все хосты из произвольного объекта. Аргумент: {*} data - Произвольный JS объект: строки вида: '10.0.2.80 ( site.company.local ) 10.0.2.81 (aaaa.bbbb.cccc.dd)' Данные в скобках считаются именем хоста. Пробелы между скобками и именем хоста игнорируются. Возвращает {Promise&lt;Array&lt;String&gt;&gt;}.</p>
+    <div  class="confbox admonition admonition-note">
+                            <span class="admonition-icon confluence-information-macro-icon"></span>
+                <div class="admonition-body">
+<p   >При использовании функций в текстовых полях, работа интеграции завершится с ошибкой несоответствия типов.</p>
+        </div>
+    </div>
     </div>
     <div class="section section-1" id="src-23344884_safe-id-aWQt0J3QsNGB0YLRgNC-0LnQutCw0YHQstGP0LfRi9Cy0LDQvdC40Y_Qv9C-0LvQtdC50L_QvtC70YPRh9C10L3QvdGL0YXQuNC3U0lFTdGB0LjRgdGC0LXQvNC40L3RhtC40LTQtdC90YLQvtCy0YHQv9C-0LvRj9C80LhSLVZpc2lvbi3QodC_0LXRhtC40LDQu9C40LfQuNGA0L7QstCw0L3QvdGL0LXRhNGD0L3QutGG0LjQuC4">
         <h1 class="heading "><span>&#1057;&#1087;&#1077;&#1094;&#1080;&#1072;&#1083;&#1080;&#1079;&#1080;&#1088;&#1086;&#1074;&#1072;&#1085;&#1085;&#1099;&#1077; &#1092;&#1091;&#1085;&#1082;&#1094;&#1080;&#1080;.</span></h1>
