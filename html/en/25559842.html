@@ -4975,12 +4975,28 @@
 
         <div id="main-content" class="wiki-content sp-grid-section" data-index-for-search="true">
 
+<p  class="a1" >Интеграция со сканером безопасности Nessus может осуществляться с помощью API или через сетевую папку (SMB).</p>
+    <div class="section section-1" id="src-25559842_safe-id-aWQt0JjQvdGC0LXQs9GA0LDRhtC40Y_RgdC-0YHQutCw0L3QtdGA0L7QvNCx0LXQt9C-0L_QsNGB0L3QvtGB0YLQuE5lc3N1cy3QndCw0YHRgtGA0L7QudC60LDQstC90LXRiNC90LXQudGB0LjRgdGC0LXQvNGL0LTQu9GP0LjQvdGC0LXQs9GA0LDRhtC40LjRgdC_0L7QvNC-0YnRjNGOQVBJ">
+        <h1 class="heading a1"><span>&#1053;&#1072;&#1089;&#1090;&#1088;&#1086;&#1081;&#1082;&#1072; &#1074;&#1085;&#1077;&#1096;&#1085;&#1077;&#1081; &#1089;&#1080;&#1089;&#1090;&#1077;&#1084;&#1099; &#1076;&#1083;&#1103; &#1080;&#1085;&#1090;&#1077;&#1075;&#1088;&#1072;&#1094;&#1080;&#1080; &#1089; &#1087;&#1086;&#1084;&#1086;&#1097;&#1100;&#1102; API</span></h1>
 <p  class="a1" >Для интеграции со сканером Nessus требуется учетная запись с минимальной ролью <strong class=" ">Standard</strong>. Из-под этой учетной записи сгенерируйте ключи (API Keys).</p>
 <p  class="a1" ><img  class="confluence-embedded-image"  src="images/download/attachments/25559842/image2017-7-11_18-43-29.png" alt="images/download/attachments/25559842/image2017-7-11_18-43-29.png"  height="150" />
     </p>
 <p  class="a1" >Затем, создайте и запустите сканирования сети (Scans): под данным пользователем должны быть доступны результаты сканирования, чтобы импортировать уязвимости в систему R-Vision. Сканирования не должны пересекаться по сетям и узлам, иначе интеграции будут работать некорректно: в рамках каждой запущенной интеграции в системе R-Vision будут сразу сначала обнаруживаться, а потом устраняться уязвимости. Это происходит из-за того, что Nessus в рамках работы с API возвращает отдельно последние результаты каждого сканирования, а не сводные данные по всем сканированиям на текущий момент</p>
 <p  class="a" ><img  class="confluence-embedded-image confluence-content-image-border"  src="images/download/attachments/25559842/image2017-7-11_18-43-48.png" alt="images/download/attachments/25559842/image2017-7-11_18-43-48.png"  height="150" />
     </p>
+    </div>
+    <div class="section section-1" id="src-25559842_safe-id-aWQt0JjQvdGC0LXQs9GA0LDRhtC40Y_RgdC-0YHQutCw0L3QtdGA0L7QvNCx0LXQt9C-0L_QsNGB0L3QvtGB0YLQuE5lc3N1cy3QndCw0YHRgtGA0L7QudC60LDQstC90LXRiNC90LXQudGB0LjRgdGC0LXQvNGL0LTQu9GP0LjQvdGC0LXQs9GA0LDRhtC40LjRh9C10YDQtdC3U01C">
+        <h1 class="heading a1"><span>&#1053;&#1072;&#1089;&#1090;&#1088;&#1086;&#1081;&#1082;&#1072; &#1074;&#1085;&#1077;&#1096;&#1085;&#1077;&#1081; &#1089;&#1080;&#1089;&#1090;&#1077;&#1084;&#1099; &#1076;&#1083;&#1103; &#1080;&#1085;&#1090;&#1077;&#1075;&#1088;&#1072;&#1094;&#1080;&#1080; &#1095;&#1077;&#1088;&#1077;&#1079; SMB</span></h1>
+<p   >Для интеграции через SMB нужно настроить в системе Nessus выгрузку отчетов в формате CSV в сетевую папку. Система R-Vision забирает отчеты из папки, указанной в настройках интеграции.</p>
+<p   >Отчет Nessus нужно выгружать в формате CSV в следующем разделе системы:</p>
+<p   ><img  class="confluence-embedded-image confluence-content-image-border"  src="images/download/attachments/25559842/image2018-5-22_23-18-13.png" alt="images/download/attachments/25559842/image2018-5-22_23-18-13.png"  height="400" />
+    </p>
+<p   >Для корректного импорта узлов с уязвимостями в систему R-Vision нужно, чтобы в системе Nessus в отчет выгружались данные об узлах с IP-адресами. Убедитесь, что в настройках политик или шаблонов сканирований снят флажок &ldquo;Designate hosts by their DNS name&rdquo;.</p>
+<p   ><img  class="confluence-embedded-image confluence-content-image-border"  src="images/download/attachments/25559842/image2018-11-22_16-5-57.png" alt="images/download/attachments/25559842/image2018-11-22_16-5-57.png"  height="400" />
+    </p>
+    </div>
+    <div class="section section-1" id="src-25559842_safe-id-aWQt0JjQvdGC0LXQs9GA0LDRhtC40Y_RgdC-0YHQutCw0L3QtdGA0L7QvNCx0LXQt9C-0L_QsNGB0L3QvtGB0YLQuE5lc3N1cy3QndCw0YHRgtGA0L7QudC60LDQuNC90YLQtdCz0YDQsNGG0LjQuNGBTmVzc3Vz">
+        <h1 class="heading "><span>&#1053;&#1072;&#1089;&#1090;&#1088;&#1086;&#1081;&#1082;&#1072; &#1080;&#1085;&#1090;&#1077;&#1075;&#1088;&#1072;&#1094;&#1080;&#1080; &#1089; Nessus </span></h1>
 <p   >Чтобы настроить интеграцию со сканером уязвимостей Nessus, выполните следующие действия (в настройках интеграции указываются параметры подключения к внешней системе через ее API):</p>
 <ol class=" "><li class=" "><p   >Перейдите в раздел <strong class=" ">Настройки &rarr; Управление активами &rarr; Внешние системы</strong>.</p>
 </li><li class=" "><p   >Нажмите на кнопку <img  class="confluence-embedded-image confluence-thumbnail"  src="images/download/thumbnails/25559842/image2018-3-13_14-16-55.png" alt="images/download/thumbnails/25559842/image2018-3-13_14-16-55.png"  height="29" />
@@ -4991,7 +5007,7 @@
 </li><li class=" "><p   >Укажите группу.</p>
 </li><li class=" "><p   >В поле <strong class=" ">Интеграция с:</strong> выберите пункт <strong class=" ">Nessus</strong>;</p>
 </li><li class=" "><p   >Выберите тип интеграции: через API или сетевую папку(SMB).</p>
-<ol class=" "><li class=" "><p   >Для интеграции с помощью API укажите IP-адрес и порт для подключения к API Nessus, ключи для аутентификации в системе Nessus (Assess key и Secret key).</p>
+<ol class=" "><li class=" "><p   >Для интеграции с помощью API: укажите IP-адрес и порт для подключения к API Nessus, ключи для аутентификации в системе Nessus (Assess key и Secret key).</p>
 </li><li class=" "><p   >Для интеграции через сетевую папку укажите адрес сервера, на котором хранится каталог файлов, наименование сетевой папки, домен, логин и пароль, необходимые для подключения к сетевой папке.</p>
 </li></ol></li><li class=" "><p   >Если вы не хотите при работе интеграции добавлять новые узлы в систему, а только обновить информацию по существующим узлам, то установите флажок <strong class=" ">Не создавать новые узлы</strong>. Если вы хотите обновить только данные об уязвимостях, установите флажок <strong class=" ">    <span style="color: #333333;">
 Импортировать только уязвимости    </span>
@@ -5008,6 +5024,7 @@
 </li><li class=" "><p   >Установите периодичность запуска интеграции с целью обновления данных (частоту, время запуска и дни повторения).</p>
 </li><li class=" "><p   >Нажмите на кнопку <strong class=" ">Добавить</strong>.</p>
 </li></ol><p   ></p>
+    </div>
         </div>
 
     </article>
