@@ -26,9 +26,9 @@ let fileId = 0;
  *
  * @param {String} data - Прочитанный документ
  * @param {String} fileName - Имя документа
- * @return {Object} - Объект содержащий: id докумета, заголовочную часть, тело
+ * @return {Object|null} - Объект содержащий: id докумета, заголовочную часть, тело
  */
-function onReadDoc(data, fileName) {
+const onReadDoc = (data, fileName) => {
   let match = data.match(/<title[^>]*>([^<]*?)\s\-\s[\w|\s\-]*<\/title>/i);
   if (match === null) {
     if (fileName !== 'index.html') {
@@ -49,7 +49,7 @@ function onReadDoc(data, fileName) {
 
   const body = entities.decode(stripTags(match[1]));
   return { id: ++fileId, title, body };
-}
+};
 
 /**
  * Построить индекс ключевых слов
@@ -58,7 +58,7 @@ function onReadDoc(data, fileName) {
  * @param {Array} dataToIndex - Массив данных Lunr для построения индекса
  * @return {String} - строка с содержимым для файла индексов
  */
-function buildIndex(dataToIndex) {
+const buildIndex = (dataToIndex) => {
   const index = lunr((builder) => {
     builder.use(lunr.multiLanguage('en', 'ru'));
     builder.ref('id');
@@ -75,7 +75,7 @@ function buildIndex(dataToIndex) {
   });
 
   return `lunr.multiLanguage('en', 'ru'); var lunrIndex = ${JSON.stringify(index)};`;
-}
+};
 
 /**
  * Записать изменения в файл
@@ -84,9 +84,9 @@ function buildIndex(dataToIndex) {
  * @param {String} data - Данные для записи
  * @param {String} path - Путь для записи
  */
-function writeFile(data, path) {
+const writeFile = (data, path) => {
   fs.writeFileSync(path, data);
-}
+};
 
 /**
  * Копирование файлов
@@ -95,15 +95,17 @@ function writeFile(data, path) {
  * @param {Array} paths - Пути к исходным файлам
  * @param {String} to - Директория назначения
  */
-function copyFiles(paths, to) {
-  if (fs.existsSync(to)) { fs.unlinkSync(to); }
+const copyFiles = (paths, to) => {
+  if (fs.existsSync(to)) {
+    fs.unlinkSync(to);
+  }
 
   const writeStream = fs.createWriteStream(to);
 
   for (let i = 0; i !== paths.length; ++i) {
     fs.createReadStream(paths[i]).pipe(writeStream);
   }
-}
+};
 
 /**
  * Запуск сканирования документации
@@ -111,7 +113,7 @@ function copyFiles(paths, to) {
  * @see RVN-3541
  * @param {Array} items - Массив документов
  */
-function scanDocs(items) {
+const scanDocs = (items) => {
   const dataToIndex = [];
   const documentList = [];
   for (let i = 0; i !== items.length; ++i) {
@@ -142,7 +144,7 @@ function scanDocs(items) {
       path.resolve(__dirname, 'node_modules/lunr-languages/lunr.multi.js'),
       path.resolve(__dirname, 'node_modules/lunr-languages/lunr.ru.js'),
   ], path.join(docsPath, 'js/lunr-extras.js'));
-}
+};
 
 try {
   scanDocs(fs.readdirSync(docsPath));

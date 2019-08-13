@@ -1,0 +1,334 @@
+#!/bin/bash
+
+LOG_FILE=convert_log.log
+
+WORK_DIR=.tmp
+
+ERROR_NO_SOURCE_FILES=1
+ERROR_TEMP_CREATE_FAIL=2
+ERROR_SOURCE_COPY_FAIL=3
+ERROR_PATCH_APPLY_FAIL=4
+ERROR_MODULE_UPDATE_FAIL=5
+ERROR_SEARCH_FIX_FAIL=6
+ERROR_REMOVE_OLD_FILES_FAIL=7
+ERROR_COPY_NEW_FILES_FAIL=8
+ERROR_TEMP_REMOVE_FAIL=9
+
+# Логирование действий
+log() {
+    echo $1
+    echo $1 >> ${LOG_FILE}
+}
+
+# Логирование ошибки с остановкой
+error() {
+    read -rsp $'Press any key to continue...\n' -n1 key
+    exit $1
+}
+
+# Если существует лог-файл, то обнуляем его
+# TODO: Возможно стоит писать дату текущего лога и продолжать
+if [[ -f ${LOG_FILE} ]]; then
+    echo "" > ${LOG_FILE}
+fi
+
+# Если рабочий каталог остался, удаляем его
+if [[ -d ${WORK_DIR} ]]; then
+    rm -rf ${WORK_DIR}
+fi
+
+# Проверяем на существование исходных файлов для конвертации
+# Проверка есть ли русская локаль
+if [[ -d "src/ru" && -f "src/ru/index.html" ]]; then
+    DOC_LANG_RU=1
+else
+    DOC_LANG_RU=0
+fi
+
+# Проверка есть ли английская локаль
+if [[ -d "src/en" && -f "src/en/index.html" ]]; then
+    DOC_LANG_EN=1
+else
+    DOC_LANG_EN=0
+fi
+
+# Если ни одной локали нет, то проверяем мультиязычную версию
+if [[ ${DOC_LANG_RU} -eq 0 && ${DOC_LANG_EN} -eq 0 ]]; then
+    if [[ -d "src" && -f "src/index.html" ]]; then
+        DOC_LANG_ALL=1
+    else
+        log "ERROR: No files in src directory for needed language. Please, put exported documentation into src/<lang> folder"
+        error ${ERROR_NO_SOURCE_FILES}
+    fi
+else
+    DOC_LANG_ALL=0
+fi
+
+log "Starting documentation conversion..."
+
+log "Creating temp folder"
+# Создание временной директории
+# Создаем общий рабочий каталог
+mkdir -p ${WORK_DIR} >> ${LOG_FILE}
+
+if [[ $? -ne 0 ]]; then
+    log "ERROR: Cannot create temp folder"
+    error ${ERROR_TEMP_CREATE_FAIL}
+fi
+
+# Создаем рабочий каталог русской локали
+if [[ ${DOC_LANG_RU} -eq 1 ]]; then
+    mkdir -p ${WORK_DIR}/ru >> ${LOG_FILE}
+
+    if [[ $? -ne 0 ]]; then
+        log "ERROR: Cannot create temp folder"
+        error ${ERROR_TEMP_CREATE_FAIL}
+    fi
+fi
+
+# Создаем рабочий каталог английской локали
+if [[ ${DOC_LANG_EN} -eq 1 ]]; then
+    mkdir -p ${WORK_DIR}/en >> ${LOG_FILE}
+
+    if [[ $? -ne 0 ]]; then
+        log "ERROR: Cannot create temp folder"
+        error ${ERROR_TEMP_CREATE_FAIL}
+    fi
+fi
+
+log "Copying source files to temp folder..."
+# Копирование исходных файлов в рабочий каталог
+# Копируем файлы русской локали
+if [[ ${DOC_LANG_RU} -eq 1 ]]; then
+    cp -R src/ru/* ${WORK_DIR}/ru >> ${LOG_FILE}
+
+    if [[ $? -ne 0 ]]; then
+        log "ERROR: Cannot copy files to temp folder"
+        error ${ERROR_SOURCE_COPY_FAIL}
+    fi
+fi
+
+# Копируем файлы английской локали
+if [[ ${DOC_LANG_EN} -eq 1 ]]; then
+    cp -R src/en/* ${WORK_DIR}/en >> ${LOG_FILE}
+
+    if [[ $? -ne 0 ]]; then
+        log "ERROR: Cannot copy files to temp folder"
+        error ${ERROR_SOURCE_COPY_FAIL}
+    fi
+fi
+
+# Копируем все мультиязычные файлы
+if [[ ${DOC_LANG_ALL} -eq 1 ]]; then
+    cp -R src/* ${WORK_DIR} >> ${LOG_FILE}
+
+    if [[ $? -ne 0 ]]; then
+        log "ERROR: Cannot copy files to temp folder"
+        error ${ERROR_SOURCE_COPY_FAIL}
+    fi
+
+    rm -r ${WORK_DIR}/ru
+    rm -r ${WORK_DIR}/en
+fi
+
+# Патчи русской версии
+if [[ ${DOC_LANG_RU} -eq 1 ]]; then
+    log "Applying documentation patch..."
+    # Накладываем патч на стили контента
+    patch src/ru/assets/css/content-style.css -i patches/content-style.css.patch -o ${WORK_DIR}/ru/assets/css/content-style.css >> ${LOG_FILE}
+
+    if [[ $? -ne 0 ]]; then
+        log "ERROR: Cannot apply documentation patch"
+        error ${ERROR_PATCH_APPLY_FAIL}
+    fi
+
+    # Накладываем патч на стили темы
+    patch src/ru/assets/css/theme.main.css -i patches/theme.main.css.patch -o ${WORK_DIR}/ru/assets/css/theme.main.css >> ${LOG_FILE}
+
+    if [[ $? -ne 0 ]]; then
+        log "ERROR: Cannot apply documentation patch"
+        error ${ERROR_PATCH_APPLY_FAIL}
+    fi
+
+    # Накладываем патч на стили темы (JS)
+    patch src/ru/assets/js/theme.main.js -i patches/theme.main.js.patch -o ${WORK_DIR}/ru/assets/js/theme.main.js >> ${LOG_FILE}
+
+    if [[ $? -ne 0 ]]; then
+        log "ERROR: Cannot apply documentation patch"
+        error ${ERROR_PATCH_APPLY_FAIL}
+    fi
+fi
+
+# Патчи английской версии
+if [[ ${DOC_LANG_EN} -eq 1 ]]; then
+    log "Applying documentation patch..."
+    # Накладываем патч на стили контента
+    patch src/en/assets/css/content-style.css -i patches/content-style.css.patch -o ${WORK_DIR}/en/assets/css/content-style.css >> ${LOG_FILE}
+
+    if [[ $? -ne 0 ]]; then
+        log "ERROR: Cannot apply documentation patch"
+        error ${ERROR_PATCH_APPLY_FAIL}
+    fi
+
+    # Накладываем патч на стили темы
+    patch src/en/assets/css/theme.main.css -i patches/theme.main.css.patch -o ${WORK_DIR}/en/assets/css/theme.main.css >> ${LOG_FILE}
+
+    if [[ $? -ne 0 ]]; then
+        log "ERROR: Cannot apply documentation patch"
+        error ${ERROR_PATCH_APPLY_FAIL}
+    fi
+
+    # Накладываем патч на стили темы (JS)
+    patch src/en/assets/js/theme.main.js -i patches/theme.main.js.patch -o ${WORK_DIR}/en/assets/js/theme.main.js >> ${LOG_FILE}
+
+    if [[ $? -ne 0 ]]; then
+        log "ERROR: Cannot apply documentation patch"
+        error ${ERROR_PATCH_APPLY_FAIL}
+    fi
+fi
+
+# Патчи мультиязычной версии
+if [[ ${DOC_LANG_ALL} -eq 1 ]]; then
+    log "Applying documentation patch..."
+    # Накладываем патч на стили контента
+    patch src/assets/css/content-style.css -i patches/content-style.css.patch -o ${WORK_DIR}/assets/css/content-style.css >> ${LOG_FILE}
+
+    if [[ $? -ne 0 ]]; then
+        log "ERROR: Cannot apply documentation patch"
+        error ${ERROR_PATCH_APPLY_FAIL}
+    fi
+
+    # Накладываем патч на стили темы
+    patch src/assets/css/theme.main.css -i patches/theme.main.css.patch -o ${WORK_DIR}/assets/css/theme.main.css >> ${LOG_FILE}
+
+    if [[ $? -ne 0 ]]; then
+        log "ERROR: Cannot apply documentation patch"
+        error ${ERROR_PATCH_APPLY_FAIL}
+    fi
+
+    # Накладываем патч на стили темы (JS)
+    patch src/assets/js/theme.main.js -i patches/theme.main.js.patch -o ${WORK_DIR}/assets/js/theme.main.js >> ${LOG_FILE}
+
+    if [[ $? -ne 0 ]]; then
+        log "ERROR: Cannot apply documentation patch"
+        error ${ERROR_PATCH_APPLY_FAIL}
+    fi
+fi
+
+log "Adding cyrillic search patch..."
+
+# Добавляем работающий по кириллице поиск
+# Переходим в директорию инструмента
+pushd docfixer >> ${LOG_FILE}
+
+# Обновляем модули (в т.ч. модуль поиска)
+npm i >> ${LOG_FILE}
+
+if [[ $? -ne 0 ]]; then
+    log "ERROR: Cannot update modules, please, check is NPM is installed"
+    error ${ERROR_MODULE_UPDATE_FAIL}
+fi
+
+# Запускаем обработку файлов
+# Применяем патч к русской версии
+if [[ ${DOC_LANG_RU} -eq 1 ]]; then
+    node index.js ../${WORK_DIR}/ru >> ${LOG_FILE}
+
+    if [[ $? -ne 0 ]]; then
+        log "ERROR: Cannot apply cyrillic search patch"
+        error ${ERROR_SEARCH_FIX_FAIL}
+    fi
+fi
+
+# Применяем патч к английской версии
+if [[ ${DOC_LANG_EN} -eq 1 ]]; then
+    node index.js ../${WORK_DIR}/en >> ${LOG_FILE}
+
+    if [[ $? -ne 0 ]]; then
+        log "ERROR: Cannot apply cyrillic search patch"
+        error ${ERROR_SEARCH_FIX_FAIL}
+    fi
+fi
+
+# Применяем патч к мультиязычной версии
+if [[ ${DOC_LANG_ALL} -eq 1 ]]; then
+    node index.js ../${WORK_DIR} >> ${LOG_FILE}
+
+    if [[ $? -ne 0 ]]; then
+        log "ERROR: Cannot apply cyrillic search patch"
+        error ${ERROR_SEARCH_FIX_FAIL}
+    fi
+fi
+
+popd >> ${LOG_FILE}
+
+log "Removing old documentation files..."
+# Убираем старые файлы русской документации
+if [[ ${DOC_LANG_ALL} -eq 1 || ${DOC_LANG_RU} -eq 1 ]]; then
+    rm -rf html/ru >> ${LOG_FILE}
+
+    if [[ $? -ne 0 ]]; then
+        log "ERROR: Cannot remove old documentation files"
+        error ${ERROR_REMOVE_OLD_FILES_FAIL}
+    fi
+fi
+
+# Убираем старые файлы английской документации
+if [[ ${DOC_LANG_ALL} -eq 1 || ${DOC_LANG_EN} -eq 1 ]]; then
+    rm -rf html/en >> ${LOG_FILE}
+
+    if [[ $? -ne 0 ]]; then
+        log "ERROR: Cannot remove old documentation files"
+        error ${ERROR_REMOVE_OLD_FILES_FAIL}
+    fi
+fi
+
+log "Copying new documentation files..."
+# Копируем файлы конверсии русского языка в русскую директорию
+if [[ ${DOC_LANG_RU} -eq 1 ]]; then
+    cp -R ${WORK_DIR}/ru html/ru >> ${LOG_FILE}
+
+    if [[ $? -ne 0 ]]; then
+        log "ERROR: Cannot copy new documentation files"
+        error ${ERROR_COPY_NEW_FILES_FAIL}
+    fi
+fi
+
+# Копируем файлы конверсии английского языка в английскую директорию
+if [[ ${DOC_LANG_EN} -eq 1 ]]; then
+    cp -R ${WORK_DIR}/en html/en >> ${LOG_FILE}
+
+    if [[ $? -ne 0 ]]; then
+        log "ERROR: Cannot copy new documentation files"
+        error ${ERROR_COPY_NEW_FILES_FAIL}
+    fi
+fi
+
+# Для мультиязычкного варианта копируем в обе директории
+if [[ ${DOC_LANG_ALL} -eq 1 ]]; then
+    cp -R ${WORK_DIR} html/ru >> ${LOG_FILE}
+
+    if [[ $? -ne 0 ]]; then
+        log "ERROR: Cannot copy new documentation files"
+        error ${ERROR_COPY_NEW_FILES_FAIL}
+    fi
+
+    cp -R ${WORK_DIR} html/en >> ${LOG_FILE}
+
+    if [[ $? -ne 0 ]]; then
+        log "ERROR: Cannot copy new documentation files"
+        error ${ERROR_COPY_NEW_FILES_FAIL}
+    fi
+fi
+
+log "Removing temp folder..."
+# Убираем рабочий каталог
+rm -rf ${WORK_DIR} >> ${LOG_FILE}
+
+if [[ $? -ne 0 ]]; then
+    log "ERROR: Cannot remove temp folder"
+    error ${ERROR_TEMP_REMOVE_FAIL}
+fi
+
+log "Done!"
+exit 0
