@@ -80,9 +80,6 @@
         /* init Keyboard */
         initKeyboard();
 
-        /* R-VISION: RVN-5315 */
-        initCustomStyles();
-
         $('.sp-picker').change(function () {
             $(this).closest('form').trigger('submit');
         });
@@ -786,71 +783,6 @@
         } else {
             $('#ht-wrap-container').addClass('sp-grid-fluid');
             $('#ht-wrap-container').removeClass('sp-grid-float');
-        }
-    }
-
-    /**
-     * Инициадлизирует кастомные стили
-     * @see RVN-5315
-     */
-    function initCustomStyles() {
-        $('.external-link').attr('target', '_blank');
-        $('.ht-logo').hide();
-
-        var parent = window.parent;
-        if (parent) {
-            if (parent.R !== undefined && parent.R.theme === 'theme-dark') {
-                $('body, #ht-headerbar, #ht-wrap-container').css({
-                    'background-color': '#2b2b2b',
-                    color: '#ccc',
-                });
-                $('#ht-sidebar-dragbar, .panel-header').css('background-color', '#101010');
-                $('#ht-sidebar').css('background-color', '#3c3f41');
-                $('.confluenceTh, .confbox').css({
-                    'background-color': '#101010',
-                    color: '#ccc',
-                });
-                $('.heading').css('color', '#ccc');
-                $('a').css('color', '#ccc');
-                $(".confbox.programlisting .title").css({"background-color": "#3c3f41", "color": "#ccc"});
-                $('.wiki-content .syntaxhighlighter .plain').css('color', '#ccc');
-                $('head').append('<style>' +
-                    'a:hover { color: #eee !important; }' +
-                    '.dark-search ul li a { background-color: #2b2b2b !important; color: #ccc !important; }' +
-                    '.dark-search ul li a:hover { background-color: #3c3f41 !important; color: #fff !important; }' +
-                    '.dark-search { border-color: #3c3f41 !important; }' +
-                    '.dark-search-results a { color: #ccc !important; }' +
-                    '.dark-search-results a:hover { color: #fff !important; }' +
-                    '</style>');
-                $('.ht-search-dropdown').addClass('dark-search');
-                $('.ht-search-input, .search-input').css({
-                    'background-color': '#3c3f41'
-                });
-                $('.search-input').css({
-                    color: '#ccc'
-                });
-                $('#ht-headerbar .ht-headerbar-right .ht-header-icon svg path').css({
-                    fill: '#ccc'
-                });
-                $('#ht-sidebar .ht-pages-nav ul li .ht-pages-nav-toggle').css('border-color', '#ccc');
-                $('#ht-sidebar .ht-pages-nav ul li .ht-pages-nav-toggle svg g').css('fill', '#ccc');
-                $('#search-results').addClass('dark-search-results');
-                $('#ht-icon-prev path, #ht-icon-next path').css({
-                    fill: '#ccc'
-                });
-                $('.wiki-content .syntaxhighlighter .string, .wiki-content .syntaxhighlighter .string a').css('color', '#369');
-                var oldEndDragbar = endDragbar;
-                endDragbar = function() {
-                    oldEndDragbar();
-                    if ($('#ht-sidebar').attr('style') == '') {
-                        $('#ht-wrap-container').css({
-                            'background-color': '#2b2b2b',
-                            'color': '#ccc'
-                        });
-                        $('#ht-sidebar').css('background-color', '#3c3f41');
-                    }
-                };
-            }
         }
     }
 

@@ -5112,35 +5112,29 @@
 <p  class="a" ><strong class=" ">:dt2fd:</strong> - Преобразует строку с датой и временем или количество миллисекунд с начала эпохи в JavaScript тип 'Date'. Аргумент - строка с датой и временем. Возвращает значение типа Date или null. Примечание временная зона 'Europe/Moscow' эквивалентна `Etc/GMT-3`, а не +3.</p>
 <p  class="a" ><strong class=" ">:dtObj2dtStr:</strong> - Преобразует объект, содержащий время (приходящий, например, от ArcSight) в JavaScript в ISO строку. Аргумент - объект, содержащий поля с годом, месяцем, и т.д. Объект включает временную зону. Возвращает строку или null. Примечание временная зона 'Europe/Moscow' эквивалентна `Etc/GMT-3`, а не +3.</p>
 <p  class="a" ><strong class=" ">:ips:</strong> - Извлекает все IP адреса (v4 и v6) из произвольного JavaScript объекта. Возвращает их как строку с заданным разделителем (по умолчанию - ', '). Аргументы - Произвольные данные, разделитель (по умолчанию: ', '). Возвращает строку или null.</p>
-<p   ><strong class=" ">regexp:.data, re, outTemplate = '$1', flags = '', sep = ', '</strong> - Парсит поле внешнего инцидента заданным регулярным выражением. Возвращает строку. Аргументы:</p>
+<p   ><strong class=" ">:regexp:.data, re, outTemplate = '$1', flags = '', sep = ', '</strong> - Парсит поле внешнего инцидента заданным регулярным выражением. Возвращает строку. Аргументы:</p>
 <p   ><strong class=" ">{*} data</strong> - Произвольные входные данные.</p>
 <p   ><strong class=" ">{string} re</strong> - Строка с регулярным выражением, в формате JavaScript. В поле инцидента регулярка должна начинаться и заканчиваться символом '/'.</p>
 <p   ><strong class=" ">{string} outTemplate = '$1' -</strong> Шаблон для возвращаемой строки. $1 заменяется на первую последовательность, заданную круглыми скобками, $2 на вторую, и т.д.</p>
 <p   ><strong class=" ">{string} flags = ''</strong> - Флаги для регулярного выражения, например ('g', 'i'). Поддерживаются все флаги JS RegExp. По умолчанию - пустая строка.</p>
 <p   ><strong class=" ">{string} sep = ', '</strong> - Разделитель. Используется, если установлен флаг 'g'. В этом случае результат состоит из строк с разделителем, созданных по шаблону outTemplate.</p>
-<p   >Следующие функции работают только с полями инцидента <strong class=" ">Оборудование: IP-адрес</strong>, <strong class=" ">Оборудование: IP-адрес источника</strong>, <strong class=" ">Оборудование: IP-адрес цели</strong>, <strong class=" ">Оборудование: Имя</strong>, <strong class=" ">Оборудование: Имя источника</strong>, <strong class=" ">Оборудование: Имя цели</strong>:</p>
-<p   ><strong class=" ">:rds: </strong>&ndash; возвращает все найденные IP адреса и привязывает их к инциденту как оборудование с типом <strong class=" ">Источник</strong>.</p>
-<p   ><strong class=" ">:rdt: </strong>&ndash; возвращает все найденные IP адреса и привязывает их к инциденту как оборудование с типом <strong class=" ">Цель</strong>.</p>
-<p   ><strong class=" ">:rd: </strong>&ndash; возвращает все найденные IP адреса и привязывает их к инциденту как оборудование без типа.</p>
-<p   ><strong class=" ">:ips: </strong>&ndash; возвращает все найденные IP адреса в виде строки с разделителем '<tt class=" ">,</tt>'.</p>
-<p   ><strong class=" ">:rHRB: </strong>&ndash; возвращает текст из скобок '()', например имя узла и строки типа: 10.1.1.80 (dc1.rvision.local)</p>
     </div>
     <div class="section section-1" id="src-25560336_safe-id-aWQt0J3QsNGB0YLRgNC-0LnQutCw0YHQstGP0LfRi9Cy0LDQvdC40Y_Qv9C-0LvQtdC50L_QvtC70YPRh9C10L3QvdGL0YXQuNC3U0lFTdGB0LjRgdGC0LXQvNC40L3RhtC40LTQtdC90YLQvtCy0YHQv9C-0LvRj9C80LhSLVZpc2lvbi3QoNC10LfQvtC70LLQtdGA0Ys">
         <h1 class="heading "><span>&#1056;&#1077;&#1079;&#1086;&#1083;&#1074;&#1077;&#1088;&#1099;</span></h1>
 <p   >Функции, которые требуют запросов к другим сервисам или базам данных. Резолверы обычно используются для создания связей с активами.</p>
-<p   ><strong class=" ">resolveDevicesByIps:.data</strong> - Определяет имя устройства по IP адресам. Ищет подходящие устройства в системе, создает внешние устройства для не найденных. Аргументы: {*} data - любой формат данных, в которых могут быть ip-адреса.</p>
+<p   ><strong class=" ">:resolveDevicesByIps:.data</strong> - Определяет имя устройства по IP адресам. Ищет подходящие устройства в системе, создает внешние устройства для не найденных. Аргументы: {*} data - любой формат данных, в которых могут быть ip-адреса.</p>
 <p   >Функцию <strong class=" ">resolveDevicesByIps</strong> можно использовать только в полях:</p>
 <ul class=" "><li class=" "><p   >Оборудование: IP-адрес.</p>
 </li><li class=" "><p   >Оборудование: IP-адрес цели.</p>
 </li><li class=" "><p   >Оборудование: IP: Источник.</p>
 </li><li class=" "><p   >Внешнее оборудование: IP-адрес цели.</p>
 </li><li class=" "><p   >Внешнее оборудование: IP: Источник.</p>
-</li></ul><p   ><strong class=" ">resolveDevicesByHostName:.deviceNames</strong> - Определяет устройства по именам хостов. Аргумент: {string[] | string} deviceNames - массив имен устройств, или одно имя устройства.</p>
+</li></ul><p   ><strong class=" ">:resolveDevicesByHostName:.deviceNames</strong> - Определяет устройства по именам хостов. Аргумент: {string[] | string} deviceNames - массив имен устройств, или одно имя устройства.</p>
 <p   >Функцию resolveDevicesByHostName можно использовать только в полях:</p>
 <ul class=" "><li class=" "><p   >Оборудование: Имя.</p>
 </li><li class=" "><p   >Оборудование: Имя источника.</p>
 </li><li class=" "><p   >Оборудование: Имя цели.</p>
-</li></ul><p   ><strong class=" ">resolveStaff:.staff</strong> - Определяет персонал по sid, name, login, домену и email-адресу. Аргумент: {(String|String[])} staff- массив sid, name, login, доменов и email-адресов персонала.</p>
+</li></ul><p   ><strong class=" ">:resolveStaff:.staff</strong> - Определяет персонал по sid, name, login, домену и email-адресу. Аргумент: {(String|String[])} staff- массив sid, name, login, доменов и email-адресов персонала.</p>
     <div  class="confbox admonition admonition-info">
                     <p class="title">&#1055;&#1088;&#1080;&#1084;&#1077;&#1088;</p>
                             <span class="admonition-icon confluence-information-macro-icon"></span>
@@ -5153,11 +5147,11 @@
 <ul class=" "><li class=" "><p   >Персонал: ФИО.</p>
 </li><li class=" "><p   >Персонал: Логин, домен.</p>
 </li><li class=" "><p   >Персонал: E-mail.</p>
-</li></ul><p   ><strong class=" ">resolveStaffByWinLogin</strong> - Определяет персонал по Down-Level Logon Name (маска DOMAIN\login).</p>
-<p   ><strong class=" ">resolveStaffByLogin</strong> - Определяет персонал по логину.</p>
-<p   ><strong class=" ">resolveStaffBySID</strong> - Определяет персонал по SID.</p>
-<p   ><strong class=" ">resolveEvidences:.files</strong> - Добавляет свидетельства инцидентов в систему, если таких свидетельств еще не было добавлено. Аргумент: {Object[]} files - данные файлов свидетельств. Возвращает {Promise&lt;Object[]&gt;}.</p>
-<p   ><strong class=" ">resolveHostInRoundBrackets:.data</strong> - Определяет хост в круглых скобках. Извлекает все хосты из произвольного объекта. Аргумент: {*} data - Произвольный JS объект: строки вида: '10.0.2.80 ( ALA-GIDURAL.ktzh.railways.local ) 10.0.2.81 (aaaa.bbbb.cccc.dd)' Данные в скобках считаются именем хоста. Пробелы между скобками и именем хоста игнорируются. Возвращает {Promise&lt;Array&lt;String&gt;&gt;}.</p>
+</li></ul><p   ><strong class=" ">:resolveStaffByWinLogin:</strong> - Определяет персонал по Down-Level Logon Name (маска DOMAIN\login).</p>
+<p   ><strong class=" ">:resolveStaffByLogin:</strong> - Определяет персонал по логину.</p>
+<p   ><strong class=" ">:resolveStaffBySID:</strong> - Определяет персонал по SID.</p>
+<p   ><strong class=" ">:resolveEvidences:.files</strong> - Добавляет свидетельства инцидентов в систему, если таких свидетельств еще не было добавлено. Аргумент: {Object[]} files - данные файлов свидетельств. Возвращает {Promise&lt;Object[]&gt;}.</p>
+<p   ><strong class=" ">:resolveHostInRoundBrackets:.data</strong> - Определяет хост в круглых скобках. Извлекает все хосты из произвольного объекта. Аргумент: {*} data - Произвольный JS объект: строки вида: '10.0.2.80 ( ALA-GIDURAL.ktzh.railways.local ) 10.0.2.81 (aaaa.bbbb.cccc.dd)' Данные в скобках считаются именем хоста. Пробелы между скобками и именем хоста игнорируются. Возвращает {Promise&lt;Array&lt;String&gt;&gt;}.</p>
     <div  class="confbox admonition admonition-note">
                             <span class="admonition-icon confluence-information-macro-icon"></span>
                 <div class="admonition-body">
