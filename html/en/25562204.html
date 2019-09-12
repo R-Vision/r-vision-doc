@@ -4976,15 +4976,14 @@
 <ol class=" "><li class=" "><p   >Разрешите подключение к базе данных с любого IP-адреса (при необходиомости можно указатьконкретные IP-адреса, с которых разрешено подключение):</p>
 </li><li class=" "><p   >Отредактируйте конфигрурационные файлы postgresql.conf и pg_hba.conf (расположение файлов может быть различным в зависимости от ОС):</p>
 </li><li class=" "><p   >В CentOS 7:</p>
-<ol class=" "><li class=" "><p   >В файле <tt class=" ">/var/lib/pgsql/10/data/postgresql.conf:</tt></p>
+<ol class=" "><li class=" "><p   >В файле <tt class=" ">/var/lib/pgsql/11/data/postgresql.conf:</tt></p>
 <p   >В разделе # - Connection Settings - пропишите дополнительную строку</p>
 <p   ><tt class=" ">listen_addresses = '*'</tt></p>
 <p   >и раскомментируйте строку <tt class=" ">port = 5432</tt></p>
-</li><li class=" "><p   >В файле <tt class=" ">/var/lib/pgsql/10/data/pg_hba.conf</tt></p>
+</li><li class=" "><p   >В файле <tt class=" ">/var/lib/pgsql/11/data/pg_hba.conf</tt></p>
 <p   >В разделе <tt class=" "># IPv4 local connections</tt> пропишите дополнительную строку:</p>
 <p   ><tt class=" ">host all all 0.0.0.0/0 md5</tt></p>
-</li></ol><p   >В Ubuntu эти файлы расположены в директории <tt class=" ">/etc/postgresql/10/main</tt></p>
-</li><li class=" "><p   >Перезапустите процесс postgresql командой <tt class=" ">service postgresql-10.service restart</tt></p>
+</li></ol></li><li class=" "><p   >Перезапустите процесс postgresql командой <tt class=" ">service postgresql-11.service restart</tt></p>
 </li><li class=" "><p   >Если используется встроенный firewall, пропишите команды, разрешающие подключение к базе данных:<br/><tt class=" ">firewall-cmd --zone=public --add-port=5432/tcp --permanent</tt><br/><tt class=" ">firewall-cmd --reload</tt></p>
 </li></ol><p   >Процесс подключения к базе данных рассматривается на примере программы DbVisualizer. Чтобы подключиться к базе данных, выполните следующие действия:</p>
 <ol class=" "><li class=" "><p   >Запустите программу DbVisualizer.</p>
