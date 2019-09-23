@@ -1,5 +1,5 @@
 /**
- * lunr - http://lunrjs.com - A bit like Solr, but much smaller and not as bright - 2.3.2
+ * lunr - http://lunrjs.com - A bit like Solr, but much smaller and not as bright - 2.2.0
  * Copyright (C) 2018 Oliver Nightingale
  * @license MIT
  */
@@ -54,7 +54,7 @@ var lunr = function (config) {
   return builder.build()
 }
 
-lunr.version = "2.3.2"
+lunr.version = "2.2.0"
 /*!
  * lunr.utils
  * Copyright (C) 2018 Oliver Nightingale
@@ -262,14 +262,6 @@ lunr.Set.prototype.contains = function (object) {
 lunr.Set.prototype.intersect = function (other) {
   var a, b, elements, intersection = []
 
-  if (other === lunr.Set.complete) {
-    return this
-  }
-
-  if (other === lunr.Set.empty) {
-    return other
-  }
-
   if (this.length < other.length) {
     a = this
     b = other
@@ -298,14 +290,6 @@ lunr.Set.prototype.intersect = function (other) {
  */
 
 lunr.Set.prototype.union = function (other) {
-  if (other === lunr.Set.complete) {
-    return lunr.Set.complete
-  }
-
-  if (other === lunr.Set.empty) {
-    return this
-  }
-
   return new lunr.Set(Object.keys(this.elements).concat(Object.keys(other.elements)))
 }
 /**
@@ -893,14 +877,15 @@ lunr.Vector.prototype.dot = function (otherVector) {
 }
 
 /**
- * Calculates the similarity between this vector and another vector.
+ * Calculates the cosine similarity between this vector and another
+ * vector.
  *
  * @param {lunr.Vector} otherVector - The other vector to calculate the
  * similarity with.
  * @returns {Number}
  */
 lunr.Vector.prototype.similarity = function (otherVector) {
-  return this.dot(otherVector) / this.magnitude() || 0
+  return this.dot(otherVector) / (this.magnitude() * otherVector.magnitude()) || 0
 }
 
 /**
@@ -1642,11 +1627,6 @@ lunr.TokenSet.prototype.toArray = function () {
         len = edges.length
 
     if (frame.node.final) {
-      /* In Safari, at this point the prefix is sometimes corrupted, see:
-       * https://github.com/olivernn/lunr.js/issues/279 Calling any
-       * String.prototype method forces Safari to "cast" this string to what
-       * it's supposed to be, fixing the bug. */
-      frame.prefix.charAt(0)
       words.push(frame.prefix)
     }
 
@@ -1932,8 +1912,7 @@ lunr.Index = function (attrs) {
  * Performs a search against the index using lunr query syntax.
  *
  * Results will be returned sorted by their score, the most relevant results
- * will be returned first.  For details on how the score is calculated, please see
- * the {@link https://lunrjs.com/guides/searching.html#scoring|guide}.
+ * will be returned first.
  *
  * For more programmatic querying use lunr.Index#query.
  *
@@ -2009,8 +1988,7 @@ lunr.Index.prototype.query = function (fn) {
      * for a single query term.
      */
     var clause = query.clauses[i],
-        terms = null,
-        clauseMatches = lunr.Set.complete
+        terms = null
 
     if (clause.usePipeline) {
       terms = this.pipeline.runString(clause.term, {
@@ -2080,15 +2058,15 @@ lunr.Index.prototype.query = function (fn) {
 
           /*
            * if the presence of this term is required ensure that the matching
-           * documents are added to the set of required matches for this clause.
-           *
+           * documents are added to the set of required matches for this field,
+           * creating that set if it does not yet exist.
            */
           if (clause.presence == lunr.Query.presence.REQUIRED) {
-            clauseMatches = clauseMatches.union(matchingDocumentsSet)
-
             if (requiredMatches[field] === undefined) {
               requiredMatches[field] = lunr.Set.complete
             }
+
+            requiredMatches[field] = requiredMatches[field].intersect(matchingDocumentsSet)
           }
 
           /*
@@ -2118,7 +2096,7 @@ lunr.Index.prototype.query = function (fn) {
            * for the term we are working with. In that case we just add the scores
            * together.
            */
-          queryVectors[field].upsert(termIndex, clause.boost, function (a, b) { return a + b })
+          queryVectors[field].upsert(termIndex, 1 * clause.boost, function (a, b) { return a + b })
 
           /**
            * If we've already seen this term, field combo then we've already collected
@@ -2152,19 +2130,6 @@ lunr.Index.prototype.query = function (fn) {
         }
       }
     }
-
-    /**
-     * If the presence was required we need to update the requiredMatches field sets.
-     * We do this after all fields for the term have collected their matches because
-     * the clause terms presence is required in _any_ of the fields not _all_ of the
-     * fields.
-     */
-    if (clause.presence === lunr.Query.presence.REQUIRED) {
-      for (var k = 0; k < clause.fields.length; k++) {
-        var field = clause.fields[k]
-        requiredMatches[field] = requiredMatches[field].intersect(clauseMatches)
-      }
-    }
   }
 
   /**
@@ -2179,7 +2144,7 @@ lunr.Index.prototype.query = function (fn) {
     var field = this.fields[i]
 
     if (requiredMatches[field]) {
-      allRequiredMatches = allRequiredMatches.intersect(requiredMatches[field])
+      allRequiredMatches = allRequiredMatches.union(requiredMatches[field])
     }
 
     if (prohibitedMatches[field]) {
@@ -2364,8 +2329,7 @@ lunr.Index.load = function (serializedIndex) {
  */
 lunr.Builder = function () {
   this._ref = "id"
-  this._fields = Object.create(null)
-  this._documents = Object.create(null)
+  this._fields = []
   this.invertedIndex = Object.create(null)
   this.fieldTermFrequencies = {}
   this.fieldLengths = {}
@@ -2396,20 +2360,6 @@ lunr.Builder.prototype.ref = function (ref) {
 }
 
 /**
- * A function that is used to extract a field from a document.
- *
- * Lunr expects a field to be at the top level of a document, if however the field
- * is deeply nested within a document an extractor function can be used to extract
- * the right field for indexing.
- *
- * @callback fieldExtractor
- * @param {object} doc - The document being added to the index.
- * @returns {?(string|object|object[])} obj - The object that will be indexed for this field.
- * @example <caption>Extracting a nested field</caption>
- * function (doc) { return doc.nested.field }
- */
-
-/**
  * Adds a field to the list of document fields that will be indexed. Every document being
  * indexed should have this field. Null values for this field in indexed documents will
  * not cause errors but will limit the chance of that document being retrieved by searches.
@@ -2417,22 +2367,10 @@ lunr.Builder.prototype.ref = function (ref) {
  * All fields should be added before adding documents to the index. Adding fields after
  * a document has been indexed will have no effect on already indexed documents.
  *
- * Fields can be boosted at build time. This allows terms within that field to have more
- * importance when ranking search results. Use a field boost to specify that matches within
- * one field are more important than other fields.
- *
- * @param {string} fieldName - The name of a field to index in all documents.
- * @param {object} attributes - Optional attributes associated with this field.
- * @param {number} [attributes.boost=1] - Boost applied to all terms within this field.
- * @param {fieldExtractor} [attributes.extractor] - Function to extract a field from a document.
- * @throws {RangeError} fieldName cannot contain unsupported characters '/'
+ * @param {string} field - The name of a field to index in all documents.
  */
-lunr.Builder.prototype.field = function (fieldName, attributes) {
-  if (/\//.test(fieldName)) {
-    throw new RangeError ("Field '" + fieldName + "' contains illegal character '/'")
-  }
-
-  this._fields[fieldName] = attributes || {}
+lunr.Builder.prototype.field = function (field) {
+  this._fields.push(field)
 }
 
 /**
@@ -2474,24 +2412,16 @@ lunr.Builder.prototype.k1 = function (number) {
  * it should have all fields defined for indexing, though null or undefined values will not
  * cause errors.
  *
- * Entire documents can be boosted at build time. Applying a boost to a document indicates that
- * this document should rank higher in search results than other documents.
- *
  * @param {object} doc - The document to add to the index.
- * @param {object} attributes - Optional attributes associated with this document.
- * @param {number} [attributes.boost=1] - Boost applied to all terms within this document.
  */
-lunr.Builder.prototype.add = function (doc, attributes) {
-  var docRef = doc[this._ref],
-      fields = Object.keys(this._fields)
+lunr.Builder.prototype.add = function (doc) {
+  var docRef = doc[this._ref]
 
-  this._documents[docRef] = attributes || {}
   this.documentCount += 1
 
-  for (var i = 0; i < fields.length; i++) {
-    var fieldName = fields[i],
-        extractor = this._fields[fieldName].extractor,
-        field = extractor ? extractor(doc) : doc[fieldName],
+  for (var i = 0; i < this._fields.length; i++) {
+    var fieldName = this._fields[i],
+        field = doc[fieldName],
         tokens = this.tokenizer(field, {
           fields: [fieldName]
         }),
@@ -2522,8 +2452,8 @@ lunr.Builder.prototype.add = function (doc, attributes) {
         posting["_index"] = this.termIndex
         this.termIndex += 1
 
-        for (var k = 0; k < fields.length; k++) {
-          posting[fields[k]] = Object.create(null)
+        for (var k = 0; k < this._fields.length; k++) {
+          posting[this._fields[k]] = Object.create(null)
         }
 
         this.invertedIndex[term] = posting
@@ -2574,11 +2504,9 @@ lunr.Builder.prototype.calculateAverageFieldLengths = function () {
     accumulator[field] += this.fieldLengths[fieldRef]
   }
 
-  var fields = Object.keys(this._fields)
-
-  for (var i = 0; i < fields.length; i++) {
-    var fieldName = fields[i]
-    accumulator[fieldName] = accumulator[fieldName] / documentsWithField[fieldName]
+  for (var i = 0; i < this._fields.length; i++) {
+    var field = this._fields[i]
+    accumulator[field] = accumulator[field] / documentsWithField[field]
   }
 
   this.averageFieldLength = accumulator
@@ -2597,16 +2525,12 @@ lunr.Builder.prototype.createFieldVectors = function () {
 
   for (var i = 0; i < fieldRefsLength; i++) {
     var fieldRef = lunr.FieldRef.fromString(fieldRefs[i]),
-        fieldName = fieldRef.fieldName,
+        field = fieldRef.fieldName,
         fieldLength = this.fieldLengths[fieldRef],
         fieldVector = new lunr.Vector,
         termFrequencies = this.fieldTermFrequencies[fieldRef],
         terms = Object.keys(termFrequencies),
         termsLength = terms.length
-
-
-    var fieldBoost = this._fields[fieldName].boost || 1,
-        docBoost = this._documents[fieldRef.docRef].boost || 1
 
     for (var j = 0; j < termsLength; j++) {
       var term = terms[j],
@@ -2621,9 +2545,7 @@ lunr.Builder.prototype.createFieldVectors = function () {
         idf = termIdfCache[term]
       }
 
-      score = idf * ((this._k1 + 1) * tf) / (this._k1 * (1 - this._b + this._b * (fieldLength / this.averageFieldLength[fieldName])) + tf)
-      score *= fieldBoost
-      score *= docBoost
+      score = idf * ((this._k1 + 1) * tf) / (this._k1 * (1 - this._b + this._b * (fieldLength / this.averageFieldLength[field])) + tf)
       scoreWithPrecision = Math.round(score * 1000) / 1000
       // Converts 1.23456789 to 1.234.
       // Reducing the precision so that the vectors take up less
@@ -2669,7 +2591,7 @@ lunr.Builder.prototype.build = function () {
     invertedIndex: this.invertedIndex,
     fieldVectors: this.fieldVectors,
     tokenSet: this.tokenSet,
-    fields: Object.keys(this._fields),
+    fields: this._fields,
     pipeline: this.searchPipeline
   })
 }
@@ -2977,7 +2899,7 @@ lunr.Query.prototype.isNegated = function () {
  */
 lunr.Query.prototype.term = function (term, options) {
   if (Array.isArray(term)) {
-    term.forEach(function (t) { this.term(t, lunr.utils.clone(options)) }, this)
+    term.forEach(function (t) { this.term(t, options) }, this)
     return this
   }
 
@@ -3409,9 +3331,6 @@ lunr.QueryParser.parseEditDistance = function (parser) {
       return lunr.QueryParser.parseEditDistance
     case lunr.QueryLexer.BOOST:
       return lunr.QueryParser.parseBoost
-    case lunr.QueryLexer.PRESENCE:
-      parser.nextClause()
-      return lunr.QueryParser.parsePresence
     default:
       var errorMessage = "Unexpected lexeme type '" + nextLexeme.type + "'"
       throw new lunr.QueryParseError (errorMessage, nextLexeme.start, nextLexeme.end)
@@ -3452,9 +3371,6 @@ lunr.QueryParser.parseBoost = function (parser) {
       return lunr.QueryParser.parseEditDistance
     case lunr.QueryLexer.BOOST:
       return lunr.QueryParser.parseBoost
-    case lunr.QueryLexer.PRESENCE:
-      parser.nextClause()
-      return lunr.QueryParser.parsePresence
     default:
       var errorMessage = "Unexpected lexeme type '" + nextLexeme.type + "'"
       throw new lunr.QueryParseError (errorMessage, nextLexeme.start, nextLexeme.end)

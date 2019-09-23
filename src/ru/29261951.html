@@ -205,6 +205,10 @@
         <a class="ht-nav-page-link" href="29261957.html">&#1054;&#1087;&#1090;&#1080;&#1084;&#1080;&#1079;&#1072;&#1094;&#1080;&#1103; &#1088;&#1072;&#1073;&#1086;&#1090;&#1099; &#1073;&#1072;&#1079;&#1099; &#1076;&#1072;&#1085;&#1085;&#1099;&#1093; &#1089;&#1080;&#1089;&#1090;&#1077;&#1084;&#1099;</a>
 
             </li>
+                                        <li class="leaf">
+        <a class="ht-nav-page-link" href="31689837.html">&#1050;&#1086;&#1085;&#1092;&#1080;&#1075;&#1091;&#1088;&#1080;&#1088;&#1086;&#1074;&#1072;&#1085;&#1080;&#1077; &#1089;&#1080;&#1089;&#1090;&#1077;&#1084;&#1099;</a>
+
+            </li>
                             </ul>
             </li>
                                                 <li class="collapsed">
@@ -3641,6 +3645,10 @@
         <a class="ht-nav-page-link" href="29264400.html">&#1050;&#1086;&#1087;&#1080;&#1088;&#1086;&#1074;&#1072;&#1085;&#1080;&#1077; &#1089;&#1089;&#1099;&#1083;&#1082;&#1080; &#1085;&#1072; &#1080;&#1085;&#1094;&#1080;&#1076;&#1077;&#1085;&#1090;</a>
 
             </li>
+                                        <li class="leaf">
+        <a class="ht-nav-page-link" href="31689844.html">&#1048;&#1085;&#1094;&#1080;&#1076;&#1077;&#1085;&#1090;&#1099;: &#1076;&#1086;&#1073;&#1072;&#1074;&#1083;&#1077;&#1085;&#1080;&#1077; &#1082;&#1086;&#1084;&#1084;&#1077;&#1085;&#1090;&#1072;&#1088;&#1080;&#1077;&#1074;</a>
+
+            </li>
                             </ul>
             </li>
                                                 <li class="collapsed">
@@ -4878,18 +4886,23 @@
 </div>
     </div>
 <p   >Шаг 5. Сгенерируйте файл <tt class=" ">krb5.keytab</tt>.</p>
-<p   >Для этого нужно завести пользователя в домене и установить у него параметр <tt class=" ">This account supports Kerberos AES 128 bit encryption</tt>, также желательно установить опцию <tt class=" ">Password never expires</tt>.</p>
+<p   >Для этого нужно завести пользователя в домене и установить у него параметр <tt class=" ">This account supports Kerberos AES 256 bit encryption</tt>, также желательно установить опцию <tt class=" ">Password never expires</tt>.</p>
+<p   ><img  class="confluence-embedded-image transparent confluence-external-resource confluence-content-image-border"  src="images/files.slack.com/files-pri/T02AC7UBH-FN061QSMP/image.png" alt="images/files.slack.com/files-pri/T02AC7UBH-FN061QSMP/image.png" width="367" height="113" />
+    </p>
 <p   >Далее выполните команду:</p>
     <div  class="confbox programlisting">
                 <div xmlns="http://www.w3.org/1999/xhtml" class="defaultnew syntaxhighlighter scroll-html-formatted-code">
-<div class="line"><code class="plain">ktpass –princ HTTP/{FQDN имя узла службы}@{FQDN домена в верхнем регистре} –mapuser {имя сервисного пользователя AD с указанием домена} -pass {пароль сервисного пользователя AD} -crypto All -ptype KRB5_NT_PRINCIPAL –out krb5.keytab</code></div>
+<div class="line"><code class="plain">ktpass –princ HTTP/{FQDN имя узла службы}@{FQDN</code></div>
+<div class="line"><code class="plain"> домена в верхнем регистре} –mapuser {имя сервисного пользователя AD с </code></div>
+<div class="line"><code class="plain">указанием домена} -pass {пароль сервисного пользователя AD} -crypto </code></div>
+<div class="line"><code class="plain">AES256-SHA1 -ptype KRB5_NT_PRINCIPAL –out krb5.keytab</code></div>
 </div>
     </div>
     <div  class="confbox admonition admonition-info">
                     <p class="title">&#1055;&#1088;&#1080;&#1084;&#1077;&#1088;</p>
                             <span class="admonition-icon confluence-information-macro-icon"></span>
                 <div class="admonition-body">
-<p   ><tt class=" ">ktpass -princ HTTP/test17.rvlab.net@RVLAB.NET &ndash;mapuser RVLAB\rvision -pass 123 -crypto All -ptype KRB5_NT_PRINCIPAL &ndash;out C:\temp\krb5.keytab</tt></p>
+<p   ><tt class=" ">ktpass -princ HTTP/test17.rvlab.net@RVLAB.NET &ndash;mapuser RVLAB\rvision -pass 123 -crypto AES256-SHA1 -ptype KRB5_NT_PRINCIPAL &ndash;out C:\temp\krb5.keytab</tt></p>
         </div>
     </div>
 <p   >Шаг 6. Получившийся файл krb5.keytab необходимо загрузить на сервер R-Vision в директорию /etc и перезапустить R-Vision командой:</p>

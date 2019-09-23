@@ -205,6 +205,10 @@
         <a class="ht-nav-page-link" href="29261957.html">&#1054;&#1087;&#1090;&#1080;&#1084;&#1080;&#1079;&#1072;&#1094;&#1080;&#1103; &#1088;&#1072;&#1073;&#1086;&#1090;&#1099; &#1073;&#1072;&#1079;&#1099; &#1076;&#1072;&#1085;&#1085;&#1099;&#1093; &#1089;&#1080;&#1089;&#1090;&#1077;&#1084;&#1099;</a>
 
             </li>
+                                        <li class="leaf">
+        <a class="ht-nav-page-link" href="31689837.html">&#1050;&#1086;&#1085;&#1092;&#1080;&#1075;&#1091;&#1088;&#1080;&#1088;&#1086;&#1074;&#1072;&#1085;&#1080;&#1077; &#1089;&#1080;&#1089;&#1090;&#1077;&#1084;&#1099;</a>
+
+            </li>
                             </ul>
             </li>
                                                 <li class="collapsed">
@@ -3641,6 +3645,10 @@
         <a class="ht-nav-page-link" href="29264400.html">&#1050;&#1086;&#1087;&#1080;&#1088;&#1086;&#1074;&#1072;&#1085;&#1080;&#1077; &#1089;&#1089;&#1099;&#1083;&#1082;&#1080; &#1085;&#1072; &#1080;&#1085;&#1094;&#1080;&#1076;&#1077;&#1085;&#1090;</a>
 
             </li>
+                                        <li class="leaf">
+        <a class="ht-nav-page-link" href="31689844.html">&#1048;&#1085;&#1094;&#1080;&#1076;&#1077;&#1085;&#1090;&#1099;: &#1076;&#1086;&#1073;&#1072;&#1074;&#1083;&#1077;&#1085;&#1080;&#1077; &#1082;&#1086;&#1084;&#1084;&#1077;&#1085;&#1090;&#1072;&#1088;&#1080;&#1077;&#1074;</a>
+
+            </li>
                             </ul>
             </li>
                                                 <li class="collapsed">
@@ -4755,9 +4763,17 @@
 
         <div id="main-content" class="wiki-content sp-grid-section" data-index-for-search="true">
 
-<p   >Интеграция производит синхронизацию задач инцидентов, которые были созданы с помощью этой интеграции, и передает изменения статуса задачи в системе R-Vision в HP Service Manager.</p>
+<p   >Интеграция передает задачи, созданные в R-Vision, в систему HP Service Manager и синхронизирует изменения в их свойствах и статусах.</p>
+    <div  class="confbox admonition admonition-note">
+                            <span class="admonition-icon confluence-information-macro-icon"></span>
+                <div class="admonition-body">
+<ul class=" "><li class=" "><p   >Задачи, переданные в HP Service Manager, нельзя редактировать в системе R-Vision.</p>
+</li><li class=" "><p   >Для задач, переданных в HP Service Manager, нельзя создавать подзадачи в R-Vision.</p>
+</li><li class=" "><p   >Чтобы возвращать синхронизируемые задачи на доработку в систему R-Vision, нужно задать разрешение в настройках интеграции (см. п.6 инструкции - установить флажок <strong class=" ">Отправлять в HP SM изменения статуса задач</strong>).</p>
+</li></ul>        </div>
+    </div>
 <p   >Для работы с задачами через API:</p>
-<ol class=" "><li class=" "><p   >Разрешите HP ServiceManager запрашивать сущность через API:</p>
+<ol class=" "><li class=" "><p   >Разрешите HP Service Manager запрашивать сущность через API:</p>
 <p   ><img  class="confluence-embedded-image confluence-external-resource confluence-content-image-border"  src="images/sdtm.rvision.pro/plugins/servlet/jeditor_file_provider.png" alt="images/sdtm.rvision.pro/plugins/servlet/jeditor_file_provider.png" width="600"  />
     </p>
 </li><li class=" "><p   >Предоставьте учетной записи доступ к API. Для этого в командной строке введите operator и в строке поиска оператора укажите имя учетной записи.</p>
@@ -4765,9 +4781,8 @@
     </p>
 </li></ol><p   >Чтобы настроить интеграцию с HP Service Manager для получения данных о задачах, выполните следующие действия:</p>
 <ol class=" "><li class=" "><p   >Перейдите в раздел <strong class=" ">Настройки &rarr;</strong> <strong class=" ">Управление задачами &rarr; Внешние системы.</strong></p>
-</li><li class=" "><p   >Нажмите на кнопку</p>
-<img  class="confluence-embedded-image confluence-thumbnail"  src="images/download/thumbnails/29265434/image2017-8-1_10-29-39.png" alt="images/download/thumbnails/29265434/image2017-8-1_10-29-39.png"  height="32" />
-    <p   >. В правой части интерфейса отобразится область редактирования параметров интеграции.</p>
+</li><li class=" "><p   >Нажмите на кнопку <img  class="confluence-embedded-image confluence-thumbnail"  src="images/download/thumbnails/29265434/image2017-8-1_10-29-39.png" alt="images/download/thumbnails/29265434/image2017-8-1_10-29-39.png"  height="32" />
+. В правой части интерфейса отобразится область редактирования параметров интеграции.</p>
 </li><li class=" "><p   >Укажите организацию (если в системе существует несколько организаций).</p>
 </li><li class=" "><p   >В списке <strong class=" ">Интеграция с</strong> выберите пункт <strong class=" ">HP</strong> <strong class=" ">Service</strong> <strong class=" ">Manager.</strong></p>
 <img  class="confluence-embedded-image confluence-content-image-border"  src="images/download/attachments/29265434/image2019-8-6_12-59-47.png" alt="images/download/attachments/29265434/image2019-8-6_12-59-47.png" width="300"  />
@@ -4775,14 +4790,14 @@
 <ul class=" "><li class=" "><p   >URL API системы HP Service Manager;</p>
 </li><li class=" "><p   >Имя ресурса;</p>
 </li><li class=" "><p   >Имя коллекции;</p>
-</li><li class=" "><p   >метод создания.</p>
-</li></ul></li><li class=" "><p   >Чтобы синхронизировать статус задач в системе HP Service Manager со статусом задач в системе R-Vision, установите флажок <strong class=" ">Отправлять в HP SM изменения статуса задач</strong> и укажите метод изменения.</p>
+</li><li class=" "><p   >Метод создания.</p>
+</li></ul></li><li class=" "><p   >Чтобы включить разрешение синхронизировать статус задач в системе HP Service Manager со статусом задач в системе R-Vision, установите флажок <strong class=" ">Отправлять в HP SM изменения статуса задач</strong> и укажите метод изменения.</p>
 </li><li class=" "><p   >Укажите имя ресурса для вложений.</p>
 </li><li class=" "><p   >Укажите имя коллекции для вложений.</p>
 </li><li class=" "><p   >Укажите ключ JSON аттачмента задачи с ID аттачмента.</p>
 </li><li class=" "><p   >Укажите логин и пароль для подключения.</p>
 </li><li class=" "><p   >В поле <strong class=" ">Фильтр задач</strong> <strong class=" ">HP </strong><strong class=" ">Service </strong><strong class=" ">Manager</strong> вы можете указать критерий фильтрации по значению поля. Синхронизация будет выполняться для задач, соответствующих заданному критерию фильтрации. Вы можете указать несколько критериев фильтрации, используя операторы AND и/или OR.</p>
-</li><li class=" "><p  class="auto-cursor-target" >В таблице настройте связывание полей задач R-Vision и HP Service Manager. Таблица сгруппирована по типам задач R-Vision. Нажмите на кнопку <strong class=" ">Добавить</strong>, чтобы открыть окно настройки связывания.</p>
+</li><li class=" "><p  class="auto-cursor-target" >В таблице <strong class=" ">Поле R-Vision</strong> представлены типы задач R-Vision, которые будут отправляться в HP Service Manager, и состав синхронизируемых полей. Нажмите на кнопку <strong class=" ">Добавить</strong>, чтобы открыть окно связывания полей.</p>
     <div  class="confbox admonition admonition-warning">
                             <span class="admonition-icon confluence-information-macro-icon"></span>
                 <div class="admonition-body">
@@ -4791,13 +4806,19 @@
     </div>
 <p  class="auto-cursor-target" ><img  class="confluence-embedded-image confluence-content-image-border"  src="images/download/attachments/29265434/image2019-8-6_13-44-6.png" alt="images/download/attachments/29265434/image2019-8-6_13-44-6.png" width="250"  />
     </p>
-</li><li class=" "><p   >Выберите тип задачи R-Vision.</p>
+</li><li class=" "><p   >В поле <strong class=" ">Тип задачи</strong> укажите, задачи R-Vision какого типа должны отправляться в HP Service Manager.</p>
 </li><li class=" "><p   >Укажите ключ статуса задачи в системе HP Service Manager.</p>
-</li><li class=" "><p   >В таблице <strong class=" ">Связывание статусов</strong> настройте связывание статусов R-Vision и HP Service Manager.</p>
+</li><li class=" "><p   >В таблице <strong class=" ">Связывание статусов</strong> настройте соответствие статусов R-Vision и HP Service Manager.</p>
 </li><li class=" "><p   >Укажите ключ важности задачи HP Service Manager.</p>
-</li><li class=" "><p   >В таблице <strong class=" ">Связывание важности </strong>настройте связывание уровней важности задач R-Vision и HP Service Manager.</p>
-</li><li class=" "><p   >Укажите ID.</p>
-</li><li class=" "><p   >В таблице <strong class=" ">Связывание полей</strong> настройте связывание полей R-Vision и HP Service Manager.</p>
+</li><li class=" "><p   >В таблице <strong class=" ">Связывание важности </strong>настройте соответствие уровней важности задач R-Vision и HP Service Manager.</p>
+</li><li class=" "><p   >Укажите ключ для поля ID в системе HP Service Manager.</p>
+</li><li class=" "><p  class="auto-cursor-target" >В таблице <strong class=" ">Связывание полей</strong> настройте соответствие полей R-Vision и HP Service Manager.</p>
+    <div  class="confbox admonition admonition-note">
+                            <span class="admonition-icon confluence-information-macro-icon"></span>
+                <div class="admonition-body">
+<p   >Выбрать можно только поля из заданного типа задач R-Vision.</p>
+        </div>
+    </div>
 </li><li class=" "><p   >Нажмите на кнопку <strong class=" ">Сохранить</strong>. Настроенные связи отобразятся в таблице.</p>
 </li><li class=" "><p   >Задайте периодичность запуска интеграции<strong class=" ">.</strong></p>
 </li><li class=" "><p   >Укажите<strong class=" "> Коллектор</strong> системы R-Vision.</p>
