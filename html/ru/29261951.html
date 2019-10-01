@@ -4760,8 +4760,7 @@
 
         <div id="main-content" class="wiki-content sp-grid-section" data-index-for-search="true">
 
-    <div class="section section-1" id="src-29261951_safe-id-aWQt0J3QsNGB0YLRgNC-0LnQutCw0L_RgNC-0LfRgNCw0YfQvdC-0LnQsNGD0YLQtdC90YLQuNGE0LjQutCw0YbQuNC40LLRgdC40YHRgtC10LzQtVItVmlzaW9u0L_QvtC_0YDQvtGC0L7QutC-0LvRg0tFUkJFUk9TVjUt0JDRg9GC0LXQvdGC0LjRhNC40LrQsNGG0LjRj9C_0L7Qt9Cw0LPQvtC70L7QstC60LDQvA">
-        <h1 class="heading "><span>&#1040;&#1091;&#1090;&#1077;&#1085;&#1090;&#1080;&#1092;&#1080;&#1082;&#1072;&#1094;&#1080;&#1103; &#1087;&#1086; &#1079;&#1072;&#1075;&#1086;&#1083;&#1086;&#1074;&#1082;&#1072;&#1084;</span></h1>
+<p   >Аутентификация по заголовкам</p>
 <p   >Для авторизации посредством заголовка нужно модифицировать отправляемые HTTP-заголовки. Вы можете проверить авторизацию с модифицированным заголовком с помощью программы Postman.</p>
 <p   >Чтобы настроить R-Vision для распознавания заголовков, в которых содержится логин пользователя, нужно добавить в конфигурационный файл <tt class=" ">/opt/smp/config/dotenv/default.env</tt> строку:</p>
 <p   ><tt class=" ">AUTH_HEADERS=WLS_SSO_UID </tt>, где</p>
@@ -4772,7 +4771,6 @@
                 <div xmlns="http://www.w3.org/1999/xhtml" class="defaultnew syntaxhighlighter scroll-html-formatted-code">
 <div class="line"><code class="functions">cd</code><code class="plain"> </code><code class="plain">/opt/smp</code><code class="plain"> &amp;&amp; pm2 restart processes.json</code></div>
 </div>
-    </div>
     </div>
     <div class="section section-1" id="src-29261951_safe-id-aWQt0J3QsNGB0YLRgNC-0LnQutCw0L_RgNC-0LfRgNCw0YfQvdC-0LnQsNGD0YLQtdC90YLQuNGE0LjQutCw0YbQuNC40LLRgdC40YHRgtC10LzQtVItVmlzaW9u0L_QvtC_0YDQvtGC0L7QutC-0LvRg0tFUkJFUk9TVjUt0JDRg9GC0LXQvdGC0LjRhNC40LrQsNGG0LjRj9C_0L7Qv9GA0L7RgtC-0LrQvtC70YNLRVJCRVJPUw">
         <h1 class="heading "><span>&#1040;&#1091;&#1090;&#1077;&#1085;&#1090;&#1080;&#1092;&#1080;&#1082;&#1072;&#1094;&#1080;&#1103; &#1087;&#1086; &#1087;&#1088;&#1086;&#1090;&#1086;&#1082;&#1086;&#1083;&#1091; KERBEROS</span></h1>
@@ -4889,6 +4887,23 @@
 <p   >Для этого нужно завести пользователя в домене и установить у него параметр <tt class=" ">This account supports Kerberos AES 256 bit encryption</tt>, также желательно установить опцию <tt class=" ">Password never expires</tt>.</p>
 <p   ><img  class="confluence-embedded-image transparent confluence-external-resource confluence-content-image-border"  src="images/files.slack.com/files-pri/T02AC7UBH-FN061QSMP/image.png" alt="images/files.slack.com/files-pri/T02AC7UBH-FN061QSMP/image.png" width="367" height="113" />
     </p>
+<p   >    <span style="color: #1d1c1d;">
+Для этого пользователя нужно настроить servicePrincipalName командой    </span>
+</p>
+    <div  class="confbox programlisting">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="defaultnew syntaxhighlighter scroll-html-formatted-code">
+<div class="line"><code class="plain">setspn -S HTTP/{FQDN имя узла службы}@{FQDN домена в верхнем регистре} {имя сервисного пользователя AD с указанием домена}</code></div>
+</div>
+    </div>
+    <div  class="confbox admonition admonition-info">
+                    <p class="title">&#1055;&#1088;&#1080;&#1084;&#1077;&#1088;</p>
+                            <span class="admonition-icon confluence-information-macro-icon"></span>
+                <div class="admonition-body">
+<p   >    <span style="color: #1d1c1d;">
+setspn -S HTTP/<a  class="external-link" href="http://test17.rvlab.net">test17.rvlab.net</a> RVLAB\rvision    </span>
+</p>
+        </div>
+    </div>
 <p   >Далее выполните команду:</p>
     <div  class="confbox programlisting">
                 <div xmlns="http://www.w3.org/1999/xhtml" class="defaultnew syntaxhighlighter scroll-html-formatted-code">
