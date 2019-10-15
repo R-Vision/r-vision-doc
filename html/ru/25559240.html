@@ -4979,10 +4979,12 @@
 <p   ><tt class=" ">AUTH_HEADERS=WLS_SSO_UID </tt>, где</p>
 <p   ><tt class=" ">AUTH_HEADERS</tt> &mdash; список заголовков, которые будут разобраны системой.</p>
 <p   ><tt class=" ">WLS_SSO_UID</tt> &mdash; это пример наименования заголовка, используемого Microsoft Forefront Threat Management Gateway. Если нужно добавить два и более заголовков, то их нужно перечислять через запятую.</p>
-<p   >После этого надо перезапустить сервисы R-Vision командой:</p>
+<p   >После этого надо перезапустить сервисы R-Vision командами:</p>
     <div  class="confbox programlisting">
                 <div xmlns="http://www.w3.org/1999/xhtml" class="defaultnew syntaxhighlighter scroll-html-formatted-code">
-<div class="line"><code class="functions">cd</code><code class="plain"> </code><code class="plain">/opt/smp</code><code class="plain"> &amp;&amp; pm2 restart processes.json</code></div>
+<div class="line"><code class="plain">pm2 </code><code class="functions">kill</code></div>
+<div class="line"><code class="functions">cd</code><code class="plain"> </code><code class="plain">/opt/smp</code><code class="plain"> &amp;&amp; pm2 start processes.config.js</code></div>
+<div class="line"><code class="functions">cd</code><code class="plain"> </code><code class="plain">/opt/collectorjs</code><code class="plain"> &amp;&amp; pm2 start processes.json</code></div>
 </div>
     </div>
     </div>
@@ -5112,10 +5114,12 @@
 <p   ><tt class=" ">ktpass -princ HTTP/test17.rvlab.net@RVLAB.NET &ndash;mapuser RVLAB\rvision -pass 123 -crypto All -ptype KRB5_NT_PRINCIPAL &ndash;out C:\temp\krb5.keytab</tt></p>
         </div>
     </div>
-<p   >Шаг 6. Получившийся файл krb5.keytab необходимо загрузить на сервер R-Vision в директорию /etc и перезапустить R-Vision командой:</p>
+<p   >Шаг 6. Получившийся файл krb5.keytab необходимо загрузить на сервер R-Vision в директорию /etc и перезапустить R-Vision командами:</p>
     <div  class="confbox programlisting">
                 <div xmlns="http://www.w3.org/1999/xhtml" class="defaultnew syntaxhighlighter scroll-html-formatted-code">
-<div class="line"><code class="plain">cd /opt/smp &amp;&amp; pm2 restart processes.json</code></div>
+<div class="line"><code class="plain">pm2 kill</code></div>
+<div class="line"><code class="plain">cd /opt/smp &amp;&amp; pm2 start processes.config.js</code></div>
+<div class="line"><code class="plain">cd /opt/collectorjs &amp;&amp; pm2 start processes.json</code></div>
 </div>
     </div>
 <p   >Шаг 7. Проверьте корректность настроек, выполнив из директории etc команду:</p>
