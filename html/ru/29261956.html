@@ -4770,11 +4770,11 @@
 <div class="line"><code class="plain">PGPASSWORD=</code><code class="string">"password"</code><code class="plain"> pg_dump -h localhost -U rvision rvision &gt; /opt/dump.sql</code></div>
 </div>
     </div>
-<p   >где <tt class=" ">password</tt> - пароль базы данных R-Vision. Если вы не знаете пароль базы данных, обратитесь в службу технической поддержки R-Vision по адресу <a  class="external-link" href="mailto:support@rvision.pro">support@rvision.pro</a>.</p>
+<p  class="auto-cursor-target" >где <tt class=" ">password</tt> - пароль базы данных R-Vision. Если вы не знаете пароль базы данных, обратитесь в службу технической поддержки R-Vision по адресу <a  class="external-link" href="mailto:support@rvision.pro">support@rvision.pro</a>.</p>
 </li><li class=" "><p   >Cкопируйте содержимое каталога <tt class=" ">/opt/smp/api/controllers/common/crypt-utils/data</tt> на новый сервер.</p>
 </li></ol></li><li class=" "><p   >На новом сервере:</p>
 <ol class=" "><li class=" "><p   >Остановите процессы командой <tt class=" ">pm2 kill</tt></p>
-</li><li class=" "><p  class="auto-cursor-target" >Запустите восстановление базы данных из резервной копии командой</p>
+</li><li class=" "><p  class="auto-cursor-target" >Запустите восстановление базы данных из резервной копии командами</p>
     <div  class="confbox programlisting">
                 <div xmlns="http://www.w3.org/1999/xhtml" class="defaultnew syntaxhighlighter scroll-html-formatted-code">
 <div class="line"><code class="plain">PGPASSWORD=</code><code class="string">"password"</code><code class="plain"> psql -h localhost -U rvision rvision -t -c </code><code class="string">"select 'drop table \"' || tablename || '\" cascade;' from pg_tables where schemaname = 'public'"</code><code class="plain"> | PGPASSWORD=</code><code class="string">"password"</code><code class="plain"> psql -h localhost -U rvision rvision </code></div>
@@ -4792,7 +4792,7 @@
 </li><li class=" "><p   >Запустите процессы с помощью команд</p>
     <div  class="confbox programlisting">
                 <div xmlns="http://www.w3.org/1999/xhtml" class="defaultnew syntaxhighlighter scroll-html-formatted-code">
-<div class="line"><code class="plain">cd /opt/smp &amp;&amp; pm2 start processes.json</code></div>
+<div class="line"><code class="plain">cd /opt/smp &amp;&amp; pm2 start processes.config.js</code></div>
 <div class="line"> </div>
 <div class="line"><code class="plain">cd /opt/collectorjs &amp;&amp; pm2 start processes.json</code></div>
 </div>

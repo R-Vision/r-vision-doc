@@ -4776,10 +4776,12 @@
 <div class="line"><code class="plain">echo $SMP_USE_HTTPS</code></div>
 </div>
     </div>
-</li><li class=" "><p  class="auto-cursor-target" >Перезапустите сервисы командой:</p>
+</li><li class=" "><p  class="auto-cursor-target" >Перезапустите сервисы командами:</p>
     <div  class="confbox programlisting">
                 <div xmlns="http://www.w3.org/1999/xhtml" class="defaultnew syntaxhighlighter scroll-html-formatted-code">
-<div class="line"><code class="plain">cd /opt/smp/ &amp;&amp; pm2 restart processes.json</code></div>
+<div class="line"><code class="plain">pm2 kill</code></div>
+<div class="line"><code class="plain">cd /opt/smp &amp;&amp; pm2 start processes.config.js</code></div>
+<div class="line"><code class="plain">cd /opt/collectorjs &amp;&amp; pm2 start processes.json</code></div>
 </div>
     </div>
 </li></ol>    </div>
@@ -4797,10 +4799,12 @@
 <div class="line"><code class="plain">export NODE_EXTRA_CA_CERTS=/opt/smp/dataFiles/rootCACert.pem</code></div>
 </div>
     </div>
-</li><li class=" "><p  class="auto-cursor-target" >Перезапустите сервисы системы командой:</p>
+</li><li class=" "><p  class="auto-cursor-target" >Перезапустите сервисы системы командами:</p>
     <div  class="confbox programlisting">
                 <div xmlns="http://www.w3.org/1999/xhtml" class="defaultnew syntaxhighlighter scroll-html-formatted-code">
-<div class="line"><code class="plain">cd /opt/smp/ &amp;&amp; pm2 restart processes.json</code></div>
+<div class="line"><code class="plain">pm2 kill</code></div>
+<div class="line"><code class="plain">cd /opt/smp &amp;&amp; pm2 start processes.config.js</code></div>
+<div class="line"><code class="plain">cd /opt/collectorjs &amp;&amp; pm2 start processes.json</code></div>
 </div>
     </div>
 </li></ol>    </div>
@@ -4874,10 +4878,12 @@
 <div class="line"><code class="plain">echo $SMP_HTTPS_MUTUAL</code></div>
 </div>
     </div>
-</li><li class=" "><p  class="auto-cursor-target" >Перезапустите сервисы системы командой:</p>
+</li><li class=" "><p  class="auto-cursor-target" >Перезапустите сервисы системы командами:</p>
     <div  class="confbox programlisting">
                 <div xmlns="http://www.w3.org/1999/xhtml" class="defaultnew syntaxhighlighter scroll-html-formatted-code">
-<div class="line"><code class="plain">cd /opt/smp/ &amp;&amp; pm2 restart processes.json</code></div>
+<div class="line"><code class="plain">pm2 kill</code></div>
+<div class="line"><code class="plain">cd /opt/smp &amp;&amp; pm2 start processes.config.js</code></div>
+<div class="line"><code class="plain">cd /opt/collectorjs &amp;&amp; pm2 start processes.json</code></div>
 </div>
     </div>
 </li></ol>    </div>
@@ -4895,10 +4901,12 @@
 <div class="line"><code class="plain">echo $SMP_USE_HTTPS</code></div>
 </div>
     </div>
-</li><li class=" "><p  class="auto-cursor-target" >Перезапустите сервисы системы командой:</p>
+</li><li class=" "><p  class="auto-cursor-target" >Перезапустите сервисы системы командами:</p>
     <div  class="confbox programlisting">
                 <div xmlns="http://www.w3.org/1999/xhtml" class="defaultnew syntaxhighlighter scroll-html-formatted-code">
-<div class="line"><code class="plain">cd /opt/smp/ &amp;&amp; pm2 restart processes.json</code></div>
+<div class="line"><code class="plain">pm2 kill</code></div>
+<div class="line"><code class="plain">cd /opt/smp &amp;&amp; pm2 start processes.config.js</code></div>
+<div class="line"><code class="plain">cd /opt/collectorjs &amp;&amp; pm2 start processes.json</code></div>
 </div>
     </div>
 </li></ol>    </div>

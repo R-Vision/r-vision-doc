@@ -4772,9 +4772,9 @@
 <p   >max_connections = 300</p>
 <p   >shared_buffers - укажите значение, составляющее 15-20% от общего объема оперативной памяти (по умолчанию 128MB).</p>
 <p   >effective_cache_size - укажите значение, составляющее 80% от общего объема оперативной памяти (закомментирован, по умолчанию 4 GB).</p>
-</li></ol></li><li class=" "><p   >Остановите сервисы системы R-Vision командой:<br/><tt class=" ">cd /opt/smp &amp;&amp; pm2 stop processes.json</tt></p>
+</li></ol></li><li class=" "><p   >Остановите сервисы системы R-Vision командой:<br/><tt class=" ">pm2 kill</tt></p>
 </li><li class=" "><p   >Перезапустите базу данных Postgre SQL сервера R-Vision командой:<br/><tt class=" ">service postgresql-10.service restart</tt></p>
-</li><li class=" "><p   >Запустите сервисы системы командой:<br/><tt class=" ">cd /opt/smp &amp;&amp; pm2 start processes.json</tt></p>
+</li><li class=" "><p   >Запустите сервисы системы командами:<tt class=" ">cd /opt/smp &amp;&amp; pm2 start processes.config.js</tt><br/><tt class=" ">cd /opt/collectorjs &amp;&amp; pm2 start processes.json</tt></p>
 </li></ol>        </div>
 
     </article>
