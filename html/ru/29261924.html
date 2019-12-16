@@ -4784,7 +4784,7 @@
 </li><li class=" "><p  class="auto-cursor-target" >Подпишите сгенерированный сертификат корневого УЦ (rootCA) R-Vision:</p>
     <div  class="confbox programlisting">
                 <div xmlns="http://www.w3.org/1999/xhtml" class="defaultnew syntaxhighlighter scroll-html-formatted-code">
-<div class="line"><code class="plain">openssl x509 -req -in servicesCI.pem -CA rootCACert_new.pem -CAkey rootCAKey_new.pem -out servicesCI.pem -set_serial </code><code class="value">03</code><code class="plain"> -days </code><code class="value">9999</code></div>
+<div class="line"><code class="plain">openssl x509 -req -in servicesCI.pem -CA rootCACert_new.pem -CAkey rootCACert_new.key -out servicesCI.pem -set_serial </code><code class="value">03</code><code class="plain"> -days </code><code class="value">9999</code></div>
 </div>
     </div>
 </li><li class=" "><p  class="auto-cursor-target" >Конвертируем клиентские key/cert в один контейнер PKCS12:</p>
