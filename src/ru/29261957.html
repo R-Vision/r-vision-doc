@@ -4698,14 +4698,14 @@
 </li><li class=" "><p   >Количество процессоров:<br/><tt class=" ">grep -c ^processor /proc/cpuinfo</tt></p>
 </li></ol></li><li class=" "><p   >Отредактируйте конфигурацию PostgreSQL.</p>
 <ol class=" "><li class=" "><p   >Откройте файлы конфигурации с помощью следующих команд:</p>
-<ol class=" "><li class=" "><p   >Для ОС CentOS:<br/><tt class=" ">nano /var/lib/pgsql/10/data/postgresql.conf</tt></p>
-</li><li class=" "><p   >Для ОС Ubuntu:<br/><tt class=" ">nano /etc/postgresql/10/main/postgresql.conf</tt></p>
+<ol class=" "><li class=" "><p   >Для ОС CentOS:<br/><tt class=" ">nano /var/lib/pgsql/11/data/postgresql.conf</tt></p>
+</li><li class=" "><p   >Для ОС Ubuntu:<br/><tt class=" ">nano /etc/postgresql/11/main/postgresql.conf</tt></p>
 </li></ol></li><li class=" "><p   >Укажите значения следующих параметров:</p>
 <p   >max_connections = 300</p>
 <p   >shared_buffers - укажите значение, составляющее 15-20% от общего объема оперативной памяти (по умолчанию 128MB).</p>
 <p   >effective_cache_size - укажите значение, составляющее 80% от общего объема оперативной памяти (закомментирован, по умолчанию 4 GB).</p>
 </li></ol></li><li class=" "><p   >Остановите сервисы системы R-Vision командой:<br/><tt class=" ">pm2 kill</tt></p>
-</li><li class=" "><p   >Перезапустите базу данных Postgre SQL сервера R-Vision командой:<br/><tt class=" ">service postgresql-10.service restart</tt></p>
+</li><li class=" "><p   >Перезапустите базу данных Postgre SQL сервера R-Vision командой:<br/><tt class=" ">service postgresql-11.service restart</tt></p>
 </li><li class=" "><p   >Запустите сервисы системы командами:<tt class=" ">cd /opt/smp &amp;&amp; pm2 start processes.config.js</tt><br/><tt class=" ">cd /opt/collectorjs &amp;&amp; pm2 start processes.json</tt></p>
 </li></ol>        </div>
 
