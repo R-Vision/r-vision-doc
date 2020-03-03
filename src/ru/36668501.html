@@ -4460,6 +4460,99 @@
 <p   >Функции преобразования обычно используются для полей, которые не являются связями с активами.</p>
 <p  class="a" >Функции преобразования указываются после первого двоеточия.</p>
 <p  class="a" >Если используются функции преобразования, то путь к данным должен начинаться с точки. Иначе преобразование будет производиться над константой, указанной в поле, а не над значением из JSON внешнего инцидента.</p>
+<p  class="a" ><strong class=" ">CustomLevel</strong> -     <span style="color: #1d1c1d;">
+функция преобразования уровней критичности инцидентов. При использовании этой функции стандартный набор уровней критичности инцидентов в SIEM-системах ArcSight и MaxPatrol преобразуется в уровни критичности инцидентов в системе R-Vision. Уровни критичности преобразуются следующим образом:    </span>
+</p>
+    <div  class="tablewrap">
+        <table class="confluenceTable">
+                    <colgroup>
+                                    <col />
+                                    <col />
+                            </colgroup>
+        <thead class=" ">    <tr>
+            <td  class="confluenceTh" rowspan="1" colspan="1">
+    <p   >Во внешней системе</p>
+            </td>
+                <td  class="confluenceTh" rowspan="1" colspan="1">
+    <p   >В системе R-Vision</p>
+            </td>
+        </tr>
+</thead><tfoot class=" "></tfoot><tbody class=" ">    <tr>
+            <td  class="confluenceTd" rowspan="1" colspan="2">
+    <p   ><strong class=" ">ArcSight</strong></p>
+            </td>
+        </tr>
+    <tr>
+            <td  class="confluenceTd" rowspan="1" colspan="1">
+    <p   >0-None</p>
+            </td>
+                <td  class="confluenceTd" rowspan="1" colspan="1">
+    <p   >0</p>
+            </td>
+        </tr>
+    <tr>
+            <td  class="confluenceTd" rowspan="1" colspan="1">
+    <p   >1-Insignificant</p>
+            </td>
+                <td  class="confluenceTd" rowspan="1" colspan="1">
+    <p   >2</p>
+            </td>
+        </tr>
+    <tr>
+            <td  class="confluenceTd" rowspan="1" colspan="1">
+    <p   >2-Marginal</p>
+            </td>
+                <td  class="confluenceTd" rowspan="1" colspan="1">
+    <p   >4</p>
+            </td>
+        </tr>
+    <tr>
+            <td  class="confluenceTd" rowspan="1" colspan="1">
+    <p   >3-Critical</p>
+            </td>
+                <td  class="confluenceTd" rowspan="1" colspan="1">
+    <p   >6</p>
+            </td>
+        </tr>
+    <tr>
+            <td  class="confluenceTd" rowspan="1" colspan="1">
+    <p   >4-Catastrophic</p>
+            </td>
+                <td  class="confluenceTd" rowspan="1" colspan="1">
+    <p   >8</p>
+            </td>
+        </tr>
+    <tr>
+            <td  class="confluenceTd" rowspan="1" colspan="2">
+    <p   ><strong class=" ">MaxPatrol SIEM</strong></p>
+            </td>
+        </tr>
+    <tr>
+            <td  class="confluenceTd" rowspan="1" colspan="1">
+    <p   >Low</p>
+            </td>
+                <td  class="confluenceTd" rowspan="1" colspan="1">
+    <p   >4</p>
+            </td>
+        </tr>
+    <tr>
+            <td  class="confluenceTd" rowspan="1" colspan="1">
+    <p   >Medium</p>
+            </td>
+                <td  class="confluenceTd" rowspan="1" colspan="1">
+    <p   >6</p>
+            </td>
+        </tr>
+    <tr>
+            <td  class="confluenceTd" rowspan="1" colspan="1">
+    <p   >High</p>
+            </td>
+                <td  class="confluenceTd" rowspan="1" colspan="1">
+    <p   >8</p>
+            </td>
+        </tr>
+</tbody>        </table>
+            </div>
 <p  class="a" >Пример из <strong class=" ">QRadar</strong>:</p>
     <div  class="confbox programlisting">
                 <div xmlns="http://www.w3.org/1999/xhtml" class="defaultnew syntaxhighlighter scroll-html-formatted-code">
